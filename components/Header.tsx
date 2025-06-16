@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10">
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-6 py-0 -my-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <DisygoHeaderLogo />
@@ -28,7 +28,7 @@ const Header = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-gray-300 hover:text-white transition-colors duration-300 font-matrix-body font-medium"
+                className="text-gray-300 hover:text-brand-cyan cyan-hover transition-colors duration-300 font-matrix-body font-medium"
               >
                 {item.name}
               </a>
@@ -59,7 +59,7 @@ const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-300 hover:text-white transition-colors duration-300 font-matrix-body font-medium"
+                  className="text-gray-300 hover:text-brand-cyan cyan-hover transition-colors duration-300 font-matrix-body font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}

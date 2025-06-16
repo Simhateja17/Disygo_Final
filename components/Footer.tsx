@@ -35,7 +35,7 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-dark-900 border-t border-gray-800">
+    <footer className="bg-black border-t border-gray-800">
       <div className="container mx-auto px-6 py-16">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
           {/* Company Info */}
@@ -48,15 +48,15 @@ const Footer = () => {
             
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-gray-400">
-                <Mail size={18} className="text-primary-500" />
+                <Mail size={18} className="text-brand-cyan" />
                 <span>contact@disygo.com</span>
               </div>
               <div className="flex items-center gap-3 text-gray-400">
-                <Phone size={18} className="text-primary-500" />
+                <Phone size={18} className="text-brand-cyan" />
                 <span>+1 (555) 123-4567</span>
               </div>
               <div className="flex items-center gap-3 text-gray-400">
-                <MapPin size={18} className="text-primary-500" />
+                <MapPin size={18} className="text-brand-cyan" />
                 <span>123 Business Ave, Digital City, DC 12345</span>
               </div>
             </div>
@@ -70,7 +70,7 @@ const Footer = () => {
                 <li key={index}>
                   <a 
                     href="#" 
-                    className="text-gray-400 hover:text-primary-500 transition-colors duration-300"
+                    className="text-gray-400 hover:text-brand-cyan cyan-hover transition-colors duration-300"
                   >
                     {service}
                   </a>
@@ -87,7 +87,7 @@ const Footer = () => {
                 <li key={index}>
                   <a 
                     href="#" 
-                    className="text-gray-400 hover:text-primary-500 transition-colors duration-300"
+                    className="text-gray-400 hover:text-brand-cyan cyan-hover transition-colors duration-300"
                   >
                     {item}
                   </a>
@@ -104,7 +104,7 @@ const Footer = () => {
                 <li key={index}>
                   <a 
                     href="#" 
-                    className="text-gray-400 hover:text-primary-500 transition-colors duration-300"
+                    className="text-gray-400 hover:text-brand-cyan cyan-hover transition-colors duration-300"
                   >
                     {link}
                   </a>
@@ -126,25 +126,25 @@ const Footer = () => {
               <div className="flex items-center gap-4">
                 <a 
                   href="#" 
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-500 transition-all duration-300"
+                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-cyan transition-all duration-300 hover:shadow-cyan-glow"
                 >
                   <Facebook size={18} />
                 </a>
                 <a 
                   href="#" 
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-500 transition-all duration-300"
+                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-cyan transition-all duration-300 hover:shadow-cyan-glow"
                 >
                   <Twitter size={18} />
                 </a>
                 <a 
                   href="#" 
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-500 transition-all duration-300"
+                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-cyan transition-all duration-300 hover:shadow-cyan-glow"
                 >
                   <Instagram size={18} />
                 </a>
                 <a 
                   href="#" 
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-500 transition-all duration-300"
+                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-cyan transition-all duration-300 hover:shadow-cyan-glow"
                 >
                   <Linkedin size={18} />
                 </a>

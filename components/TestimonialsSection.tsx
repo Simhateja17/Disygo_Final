@@ -32,12 +32,12 @@ const TestimonialsSection = () => {
   ]
 
   return (
-    <section className="section-padding bg-gradient-to-b from-dark-800 to-dark-900">
+    <section className="section-padding bg-black">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             <span className="text-white">Reviews From Our</span>{' '}
-            <span className="gradient-text">Happy Clients</span>
+            <span className="cyan-gradient-text">Happy Clients</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Don&apos;t just take our word for it. Here&apos;s what our clients have to say about working with us.

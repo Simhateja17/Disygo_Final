@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { ExternalLink } from 'lucide-react'
+import AnimatedNumber from './AnimatedNumber'
 
 const PortfolioSection = () => {
   const projects = [
@@ -40,12 +41,12 @@ const PortfolioSection = () => {
   ]
 
   return (
-    <section id="portfolio" className="section-padding bg-dark-800">
+    <section id="portfolio" className="section-padding bg-black">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             <span className="text-white">Our Recent</span>{' '}
-            <span className="gradient-text">Portfolio</span>
+            <span className="cyan-gradient-text">Portfolio</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Take a look at some of our latest projects and see how we&apos;ve helped businesses achieve their digital goals.
@@ -68,15 +69,15 @@ const PortfolioSection = () => {
               
               <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-primary-500 font-semibold text-sm">
+                  <span className="text-brand-cyan font-semibold text-sm">
                     {project.category}
                   </span>
-                  <button className="text-gray-400 hover:text-primary-500 transition-colors duration-300">
+                  <button className="text-gray-400 hover:text-brand-cyan cyan-hover transition-colors duration-300">
                     <ExternalLink size={20} />
                   </button>
                 </div>
                 
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-500 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-brand-cyan transition-colors duration-300">
                   {project.title}
                 </h3>
                 
@@ -88,7 +89,7 @@ const PortfolioSection = () => {
                   {project.technologies.map((tech, index) => (
                     <span 
                       key={index}
-                      className="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-xs font-medium"
+                      className="px-3 py-1 bg-brand-cyan/20 text-brand-cyan rounded-full text-xs font-medium"
                     >
                       {tech}
                     </span>
@@ -103,26 +104,46 @@ const PortfolioSection = () => {
         <div className="glass-effect rounded-2xl p-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">250+</div>
+              <AnimatedNumber 
+                value={250} 
+                suffix="+" 
+                className="text-3xl font-bold cyan-gradient-text mb-2"
+                duration={2500}
+              />
               <div className="text-gray-400">Projects Delivered</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">50+</div>
+              <AnimatedNumber 
+                value={50} 
+                suffix="+" 
+                className="text-3xl font-bold cyan-gradient-text mb-2"
+                duration={2000}
+              />
               <div className="text-gray-400">Happy Clients</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">15+</div>
+              <AnimatedNumber 
+                value={15} 
+                suffix="+" 
+                className="text-3xl font-bold cyan-gradient-text mb-2"
+                duration={1800}
+              />
               <div className="text-gray-400">Awards Won</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">5+</div>
+              <AnimatedNumber 
+                value={5} 
+                suffix="+" 
+                className="text-3xl font-bold cyan-gradient-text mb-2"
+                duration={1500}
+              />
               <div className="text-gray-400">Years Experience</div>
             </div>
           </div>
         </div>
 
         <div className="text-center mt-12">
-          <button className="bg-gradient-to-r from-primary-500 to-blue-500 text-white px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300 font-medium hover-glow">
+          <button className="robot-primary-button text-brand-cyan px-8 py-4 rounded-lg hover:shadow-lg transition-all duration-300 font-medium hover-glow">
             View All Projects
           </button>
         </div>

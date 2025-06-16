@@ -20,7 +20,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Doto:wght,ROND@100..900,0..100&display=swap" rel="stylesheet" />
       </head>
-      <body className="bg-dark-900 text-gray-100">
+      <body className="bg-black text-gray-100">
         {children}
       </body>
     </html>

@@ -70,6 +70,7 @@ const ServicesSection = () => {
 
     return () => observer.disconnect();
   }, []);
+  
   return (
     <section ref={sectionRef} id="services" className="section-padding bg-black relative overflow-hidden">
       {/* Background Animation */}
@@ -155,17 +156,6 @@ const ServicesSection = () => {
                   ))}
                 </div>
               )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-                <button className="text-gray-300 font-semibold hover:text-white transition-colors duration-300 flex items-center gap-2 font-matrix-body">
-                  LEARN MORE
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                </button>
-              </div>
             </div>
           ))}
         </div>

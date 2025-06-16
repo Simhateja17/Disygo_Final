@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { ExternalLink } from './Icons'
+import AnimatedNumber from './AnimatedNumber'
 
 const Portfolio = () => {
   const projects = [
@@ -40,12 +41,12 @@ const Portfolio = () => {
   ]
 
   return (
-    <section id="portfolio" className="section-padding bg-dark-800">
+    <section id="portfolio" className="section-padding bg-black">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             <span className="text-white">Our Recent</span>{' '}
-            <span className="gradient-text">Portfolio</span>
+            <span className="cyan-gradient-text">Portfolio</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Take a look at some of our latest projects and see how we&apos;ve helped businesses achieve their digital goals.
