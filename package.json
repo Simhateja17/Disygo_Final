@@ -1,13 +1,14 @@
 {
   "name": "disygo-website",
   "version": "0.1.0",
-  "private": true,
-  "scripts": {
+  "private": true,  "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
-  },  "dependencies": {
+    "lint": "next lint",
+    "clean": "rm -rf .next node_modules package-lock.json",
+    "build:prod": "npm run clean && npm install && next build"
+  },"dependencies": {
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/runtime": "^1.10.4",
     "class-variance-authority": "^0.7.1",
