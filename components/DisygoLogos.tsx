@@ -34,7 +34,7 @@ export const DisygoFullLogo: React.FC<LogoProps> = ({ className = "", width = 20
 )
 
 // Compact logo for header (horizontal layout)
-export const DisygoHeaderLogo: React.FC<LogoProps> = ({ className = "", width = 140, height = 40 }) => (
+export const DisygoHeaderLogo: React.FC<LogoProps> = ({ className = "", width = 120, height = 40 }) => (
   <div className={`flex items-center ${className}`}>
     <Image 
       src="/Disygo Logo offical.png" 
