@@ -26,7 +26,7 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
           setIsVisible(true)
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.1, rootMargin: '50px' }
     )
 
     if (elementRef.current) {
@@ -51,9 +51,9 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
       const elapsed = now - startTime
       const progress = Math.min(elapsed / duration, 1)
 
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
-      const currentValue = Math.round(startValue + (value - startValue) * easeOutQuart)
+      // Ultra-fast easing function for instant feel
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3)
+      const currentValue = Math.round(startValue + (value - startValue) * easeOutCubic)
       
       setDisplayValue(currentValue)
 

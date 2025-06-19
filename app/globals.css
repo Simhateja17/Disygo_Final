@@ -227,10 +227,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .hover-glow:hover {
   box-shadow: 
-    0 0 30px rgba(0, 255, 255, 0.4),
-    0 0 60px rgba(64, 224, 208, 0.2),
-    inset 0 1px 0 rgba(0, 255, 255, 0.2);
-  transition: all 0.3s ease-in-out;
+    0 4px 20px rgba(0, 255, 255, 0.3),
+    inset 0 1px 0 rgba(0, 255, 255, 0.1);
+  transition: box-shadow 0.2s ease-out;
+  will-change: box-shadow;
 }
 
 .chrome-button {
@@ -451,6 +451,51 @@ html, body, main, section, div.container {
     opacity: 1;
     text-shadow: 0 0 20px rgba(125, 255, 255, 0.6);
   }
+}
+
+/* Performance Optimizations for Service Cards - ULTRA FAST */
+.service-card {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform: translateZ(0) scale(1);
+  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.service-card:hover {
+  will-change: transform, opacity;
+  transform: translateZ(0) translateY(-8px) scale(1.02);
+  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hardware acceleration for smooth animations */
+.transform-gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Ultra-fast hover effects - INSTANT RESPONSE */
+.hover-lift {
+  transition: transform 0.05s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px) translateZ(0);
+  transition: transform 0.05s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Instant hover state for any element */
+.instant-hover {
+  transition: all 0.05s ease-out;
+  will-change: transform, opacity, color;
+  transform: translateZ(0);
+}
+
+/* Remove any delays from CSS transitions */
+* {
+  transition-delay: 0s !important;
 }
 
 /* Additional Interactive Animations */

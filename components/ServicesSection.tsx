@@ -80,10 +80,10 @@ const ServicesSection = () => {
 
   return (
     <section id="services" ref={sectionRef} className="section-padding bg-black relative overflow-hidden">
-      {/* Background Effects */}
+      {/* Simplified Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -101,24 +101,50 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <div 
               key={index}
-              className={`service-card metallic-glass rounded-2xl p-8 hover-glow cyan-border transition-all duration-500 cursor-pointer group relative overflow-hidden ${
+              className={`service-card metallic-glass rounded-2xl p-8 cyan-border cursor-pointer group relative overflow-hidden transform-gpu ${
                 visibleCards.includes(index) ? 'animate-scale-in' : 'opacity-0 translate-y-10'
-              } ${selectedService === index ? 'ring-2 ring-cyan-500 scale-105' : 'hover:scale-105'}`}
-              style={{ animationDelay: `${index * 100}ms` }}
+              } ${selectedService === index ? 'ring-2 ring-cyan-500 scale-105' : ''}`}
+              style={{ 
+                animationDelay: `${index * 100}ms`,
+                willChange: 'transform',
+                transition: 'all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+              }}
               onClick={() => setSelectedService(selectedService === index ? null : index)}
             >
-              {/* Gradient Background */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl`}></div>
+              {/* Instant Gradient Background */}
+              <div 
+                className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 rounded-2xl group-hover:opacity-10`}
+                style={{ 
+                  willChange: 'opacity',
+                  transition: 'opacity 0.1s ease-out'
+                }}
+              ></div>
               
-              {/* Icon Container */}
+              {/* Ultra-responsive Icon Container */}
               <div className="mb-6 relative z-10">
-                <div className="w-16 h-16 robot-primary-button rounded-lg flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 relative">
+                <div 
+                  className="w-16 h-16 robot-primary-button rounded-lg flex items-center justify-center text-white relative overflow-hidden transform-gpu group-hover:scale-110"
+                  style={{ 
+                    willChange: 'transform',
+                    transition: 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                  }}
+                >
                   {service.icon}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  {/* Instant shine effect */}
+                  <div 
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full"
+                    style={{ transition: 'transform 0.3s ease-out' }}
+                  ></div>
                 </div>
               </div>
               
-              <h3 className="text-xl font-bold text-white mb-4 group-hover:text-brand-cyan transition-colors duration-300 font-matrix-heading relative z-10">
+              <h3 
+                className="text-xl font-bold text-white mb-4 font-matrix-heading relative z-10 group-hover:text-brand-cyan"
+                style={{ 
+                  willChange: 'color',
+                  transition: 'color 0.1s ease-out'
+                }}
+              >
                 {service.title}
               </h3>
               
@@ -126,8 +152,8 @@ const ServicesSection = () => {
                 {service.description}
               </p>
 
-              {/* Enhanced Features List */}
-              <div className={`transition-all duration-500 overflow-hidden ${
+              {/* Optimized Features List */}
+              <div className={`transition-all duration-400 overflow-hidden ${
                 selectedService === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}>
                 <div className="border-t border-cyan-500/20 pt-4 mb-4">
@@ -137,9 +163,8 @@ const ServicesSection = () => {
                       <li 
                         key={featureIndex} 
                         className="text-gray-300 text-sm flex items-center gap-2 font-matrix-body"
-                        style={{ animationDelay: `${featureIndex * 100}ms` }}
                       >
-                        <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
+                        <div className="w-1 h-1 bg-cyan-400 rounded-full"></div>
                         {feature}
                       </li>
                     ))}
@@ -148,70 +173,107 @@ const ServicesSection = () => {
               </div>
               
               <div className="mt-6 relative z-10">
-                <button className="text-gray-300 font-semibold hover:text-brand-cyan cyan-hover transition-colors duration-300 flex items-center gap-2 font-matrix-body group/btn">
+                <button 
+                  className="text-gray-300 font-semibold hover:text-brand-cyan cyan-hover flex items-center gap-2 font-matrix-body group/btn"
+                  style={{ transition: 'color 0.1s ease-out' }}
+                >
                   {selectedService === index ? 'HIDE DETAILS' : 'LEARN MORE'}
-                  <span className={`transition-transform duration-300 ${
-                    selectedService === index ? 'rotate-180' : 'group-hover/btn:translate-x-1'
-                  }`}>
+                  <span 
+                    className={`${selectedService === index ? 'rotate-180' : 'group-hover/btn:translate-x-1'}`}
+                    style={{ transition: 'transform 0.1s ease-out' }}
+                  >
                     {selectedService === index ? '↑' : '→'}
                   </span>
                 </button>
               </div>
 
-              {/* Hover Particles */}
-              <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
-                    style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                      animationDelay: `${i * 200}ms`,
-                      animationDuration: `${2 + Math.random() * 2}s`
-                    }}
-                  ></div>
-                ))}
+              {/* Instant animated particles */}
+              <div 
+                className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
+                style={{ transition: 'opacity 0.1s ease-out' }}
+              >
+                <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-cyan-400 rounded-full animate-ping" style={{ animationDelay: '0ms' }}></div>
+                <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-cyan-400 rounded-full animate-ping" style={{ animationDelay: '50ms' }}></div>
+                <div className="absolute bottom-1/3 left-1/3 w-1 h-1 bg-cyan-400 rounded-full animate-ping" style={{ animationDelay: '100ms' }}></div>
+                <div className="absolute bottom-1/4 right-1/3 w-1 h-1 bg-cyan-400 rounded-full animate-ping" style={{ animationDelay: '150ms' }}></div>
+                <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-cyan-400 rounded-full animate-ping" style={{ animationDelay: '200ms' }}></div>
               </div>
+
+              {/* Instant Glow Effect */}
+              <div 
+                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%)',
+                  willChange: 'opacity',
+                  transition: 'opacity 0.1s ease-out'
+                }}
+              ></div>
+
+              {/* Instant Card Lift Effect */}
+              <div 
+                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 pointer-events-none"
+                style={{
+                  boxShadow: '0 10px 25px rgba(0, 255, 255, 0.15)',
+                  willChange: 'opacity',
+                  transition: 'opacity 0.1s ease-out'
+                }}
+              ></div>
             </div>
           ))}
         </div>
 
-        {/* Enhanced Stats Section */}
+        {/* Ultra-Fast Stats Section - INSTANT Animation */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { value: 15, suffix: '+', label: 'Years Experience', delay: 0 },
-            { value: 15, suffix: '+', label: 'Expert Team', delay: 200 },
-            { value: 99, suffix: '%', label: 'Success Rate', delay: 400 },
-            { value: 500, suffix: '+', label: 'Happy Clients', delay: 600 }
+            { value: 15, suffix: '+', label: 'Years Experience' },
+            { value: 15, suffix: '+', label: 'Expert Team' },
+            { value: 99, suffix: '%', label: 'Success Rate' },
+            { value: 500, suffix: '+', label: 'Happy Clients' }
           ].map((stat, index) => (
             <div 
               key={index} 
-              className="text-center group hover:scale-105 transition-transform duration-300"
-              style={{ animationDelay: `${stat.delay}ms` }}
+              className="text-center group transform-gpu hover:scale-105"
+              style={{ 
+                willChange: 'transform',
+                transition: 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+              }}
             >
-              <div className="relative">
+              <div 
+                className="relative group-hover:scale-110"
+                style={{ transition: 'transform 0.05s ease-out' }}
+              >
                 <AnimatedNumber 
                   value={stat.value} 
                   suffix={stat.suffix} 
-                  className="text-4xl font-bold cyan-gradient-text mb-2 group-hover:text-5xl transition-all duration-300"
-                  duration={2000 + stat.delay}
+                  className="text-4xl font-bold cyan-gradient-text mb-2"
+                  duration={2000}
                 />
-                <div className="absolute inset-0 bg-gradient-radial from-cyan-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
               </div>
-              <div className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300 font-matrix-body">
+              <div 
+                className="text-gray-400 group-hover:text-gray-300 font-matrix-body"
+                style={{ transition: 'color 0.05s ease-out' }}
+              >
                 {stat.label}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Interactive CTA */}
+        {/* Instant Interactive CTA */}
         <div className="text-center mt-16">
-          <button className="robot-primary-button px-8 py-4 rounded-lg hover-glow transition-all duration-300 font-medium transform hover:scale-105 hover:-translate-y-1 button-pulse group">
+          <button 
+            className="robot-primary-button px-8 py-4 rounded-lg font-medium transform-gpu hover:scale-105 hover:-translate-y-1 group" 
+            style={{ 
+              willChange: 'transform',
+              transition: 'all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }}
+          >
             <span className="flex items-center gap-3">
               START YOUR PROJECT
-              <div className="w-4 h-4 border-2 border-current rounded-full animate-spin group-hover:animate-none group-hover:scale-125 transition-all duration-300"></div>
+              <div 
+                className="w-4 h-4 border-2 border-current rounded-full group-hover:animate-spin"
+                style={{ transition: 'all 0.1s ease-out' }}
+              ></div>
             </span>
           </button>
         </div>
