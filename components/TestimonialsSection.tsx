@@ -13,53 +13,33 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
-      role: "CEO, TechStartup Inc.",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face",
-      content: "Working with DISYGO transformed our digital presence completely. Their innovative approach and attention to detail exceeded all our expectations. The team's expertise in modern web technologies is truly remarkable.",
+      name: "Akkshara",
+      role: "HOME STAY",
+      avatar: "/akkshara-logo.png",
+      content: "Akkshara is highly impressed with Disygo's services! Their expertise in web design, digital marketing, and branding played a key role in our growth and expanding our reach. 🚀",
       rating: 5,
-      company: "TechStartup Inc.",
-      project: "E-commerce Platform"
+      company: "Akkshara",
+      project: "Web Design & Digital Marketing"
     },
     {
       id: 2,
-      name: "Michael Chen",
-      role: "Marketing Director, GlobalBrand",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face",
-      content: "The mobile app DISYGO developed for us has revolutionized how we connect with our customers. Outstanding quality, timely delivery, and exceptional support throughout the entire process.",
+      name: "Chittoor Cafe",
+      role: "CAFE",
+      avatar: "/chittoor-cafe-logo.png",
+      content: "Chittoor Café is extremely satisfied with Disygo's services! Their expertise in web design, digital marketing, and branding helped us grow and reach a wider audience.",
       rating: 5,
-      company: "GlobalBrand",
-      project: "Mobile Application"
+      company: "Chittoor Cafe",
+      project: "Branding & Web Design"
     },
     {
       id: 3,
-      name: "Emily Rodriguez",
-      role: "Founder, CreativeStudio",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face",
-      content: "DISYGO's creative team brought our vision to life with a stunning brand identity. Their understanding of design principles and user experience is unmatched in the industry.",
+      name: "Fast&Fab",
+      role: "E-COMMERCE",
+      avatar: "/fast-and-fab-logo.png",
+      content: "Disygo exceeded our expectations with the Fast&Fab website — fast, sleek, and flawlessly functional. Their team brought creativity, precision, and dedication to every step of the build. Communication was seamless, and deadlines were always met ahead of time. If you want results that wow, Dysigo is the agency to trust.",
       rating: 5,
-      company: "CreativeStudio",
-      project: "Brand Identity"
-    },
-    {
-      id: 4,
-      name: "David Thompson",
-      role: "CTO, DataCorp",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face",
-      content: "The analytics dashboard they built has transformed how we visualize and understand our data. Incredible attention to detail and seamless integration with our existing systems.",
-      rating: 5,
-      company: "DataCorp",
-      project: "Analytics Dashboard"
-    },
-    {
-      id: 5,
-      name: "Lisa Park",
-      role: "Operations Manager, RetailPlus",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&crop=face",
-      content: "DISYGO delivered beyond our expectations. The e-commerce solution they built has increased our online sales by 300%. Professional, reliable, and incredibly skilled team.",
-      rating: 5,
-      company: "RetailPlus",
-      project: "E-commerce Solution"
+      company: "Fast&Fab",
+      project: "Website Development"
     }
   ]
 
@@ -171,9 +151,9 @@ const TestimonialsSection = () => {
                   <img
                     src={currentTestimonial.avatar}
                     alt={currentTestimonial.name}
-                    className="w-16 h-16 rounded-full object-cover border-2 border-cyan-500/20 group-hover/avatar:border-cyan-500/60 transition-all duration-300"
+                    className="w-16 h-16 rounded-lg object-contain bg-white p-2 border-2 border-cyan-500/20 group-hover/avatar:border-cyan-500/60 transition-all duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-lg opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-300"></div>
                 </div>
                 <div className="text-center">
                   <h4 className="text-white font-bold font-matrix-heading text-lg">
@@ -227,8 +207,8 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Testimonial Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.slice(0, 3).map((testimonial, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {testimonials.map((testimonial, index) => (
             <div 
               key={testimonial.id}
               className={`metallic-glass rounded-2xl p-6 hover-glow transition-all duration-500 cursor-pointer group hover:scale-105 ${
@@ -254,7 +234,7 @@ const TestimonialsSection = () => {
               
               {/* Content */}
               <p className="text-gray-300 mb-6 font-matrix-body leading-relaxed text-sm">
-                "{testimonial.content.slice(0, 120)}..."
+                "{testimonial.content}"
               </p>
 
               {/* Client Info */}
@@ -262,7 +242,7 @@ const TestimonialsSection = () => {
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-10 h-10 rounded-full object-cover border border-cyan-500/20 group-hover:border-cyan-500/60 transition-colors duration-300"
+                  className="w-12 h-12 rounded-lg object-contain bg-white p-1 border border-cyan-500/20 group-hover:border-cyan-500/60 transition-colors duration-300"
                 />
                 <div>
                   <h4 className="text-white font-semibold font-matrix-heading text-sm">

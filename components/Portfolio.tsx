@@ -10,80 +10,92 @@ const Portfolio = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
 
-  const filters = ['All', 'Web Development', 'Mobile Development', 'Branding', 'Data Visualization']
+  const filters = ['All', 'Web Development', 'AI Agents', 'Branding']
 
   const projects = [
     {
       id: 1,
-      title: "E-commerce Platform",
+      title: "Fast&Fab",
       category: "Web Development",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
-      description: "Modern e-commerce solution with advanced features",
-      longDescription: "A comprehensive e-commerce platform built with modern technologies including React, Node.js, and MongoDB. Features include real-time inventory management, secure payment processing, and advanced analytics dashboard.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redux"],
-      liveUrl: "#",
-      githubUrl: "#",
-      stats: { views: "2.5K", likes: "324" }
-    },
-    {
-      id: 2,
-      title: "Restaurant App",
-      category: "Mobile Development", 
-      image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop",
-      description: "Food delivery app with real-time tracking",
-      longDescription: "A comprehensive food delivery application with real-time order tracking, integrated payment systems, and restaurant management dashboard. Built with React Native for cross-platform compatibility.",
-      technologies: ["React Native", "Firebase", "Stripe", "Google Maps", "Socket.io"],
-      liveUrl: "#",
-      githubUrl: "#",
-      stats: { views: "1.8K", likes: "256" }
-    },
-    {
-      id: 3,
-      title: "Corporate Identity",
-      category: "Branding",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
-      description: "Complete brand identity and design system",
-      longDescription: "A complete brand identity package including logo design, brand guidelines, marketing materials, and digital design system. Created comprehensive visual identity that reflects company values.",
-      technologies: ["Adobe Suite", "Figma", "Branding", "Print Design", "Web Design"],
+      image: "/fast-and-fab-project.png",
+      description: "Modern e-commerce platform for fashion and lifestyle",
+      longDescription: "Fast&Fab is a comprehensive e-commerce solution designed for the fashion industry. Features include product catalog management, secure payment processing, order tracking, and customer management system.",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Tailwind CSS"],
       liveUrl: "#",
       githubUrl: "#",
       stats: { views: "3.2K", likes: "445" }
     },
     {
-      id: 4,
-      title: "Analytics Dashboard",
-      category: "Data Visualization",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      description: "Real-time analytics and reporting dashboard",
-      longDescription: "Interactive analytics dashboard providing real-time insights with beautiful data visualizations. Features include custom reports, data filtering, and export capabilities.",
-      technologies: ["D3.js", "React", "Python", "PostgreSQL", "Chart.js"],
+      id: 2,
+      title: "Jarvis AI Agent",
+      category: "AI Agents",
+      image: "/jarvis-ai-project.png",
+      description: "Advanced AI assistant with voice and chat capabilities",
+      longDescription: "Jarvis AI Agent is an intelligent virtual assistant that combines natural language processing, voice recognition, and machine learning to provide personalized assistance and automation.",
+      technologies: ["Python", "OpenAI API", "Speech Recognition", "NLP", "FastAPI"],
       liveUrl: "#",
       githubUrl: "#",
-      stats: { views: "4.1K", likes: "578" }
+      stats: { views: "2.8K", likes: "392" }
+    },
+    {
+      id: 3,
+      title: "Subramanyam Technologies",
+      category: "Branding",
+      image: "/subramanyam-technologies.png",
+      description: "Corporate identity design for technology company",
+      longDescription: "Complete brand identity package for Subramanyam Technologies including logo design, brand guidelines, business cards, and digital assets. Created a modern, professional identity that reflects their tech expertise.",
+      technologies: ["Adobe Illustrator", "Photoshop", "Brand Strategy", "Logo Design"],
+      liveUrl: "#",
+      githubUrl: "#",
+      stats: { views: "1.9K", likes: "278" }
+    },
+    {
+      id: 4,
+      title: "Aarunya",
+      category: "Branding",
+      image: "/aarunya.png",
+      description: "Elegant brand identity for lifestyle brand",
+      longDescription: "Aarunya brand identity focuses on elegance and sophistication. The design includes logo variations, color palette, typography guidelines, and application across various touchpoints.",
+      technologies: ["Adobe Creative Suite", "Brand Strategy", "Visual Identity"],
+      liveUrl: "#",
+      githubUrl: "#",
+      stats: { views: "2.1K", likes: "315" }
     },
     {
       id: 5,
-      title: "Social Media Platform",
-      category: "Web Development",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
-      description: "Modern social networking platform",
-      longDescription: "A full-featured social media platform with real-time messaging, content sharing, and community features. Built with scalable architecture and modern UI/UX principles.",
-      technologies: ["Next.js", "PostgreSQL", "Socket.io", "AWS", "Tailwind"],
+      title: "The Pilot Chef",
+      category: "Branding",
+      image: "/the-pilot-chef.png",
+      description: "Creative branding for culinary aviation theme",
+      longDescription: "The Pilot Chef combines aviation and culinary themes in a unique brand identity. Features custom logo design, menu layouts, and brand applications that capture the spirit of adventure and fine dining.",
+      technologies: ["Illustrator", "InDesign", "Brand Development", "Menu Design"],
       liveUrl: "#",
       githubUrl: "#",
-      stats: { views: "5.3K", likes: "732" }
+      stats: { views: "1.7K", likes: "243" }
     },
     {
       id: 6,
-      title: "Fitness Mobile App",
-      category: "Mobile Development",
-      image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop",
-      description: "Comprehensive fitness tracking application",
-      longDescription: "A comprehensive fitness application with workout tracking, nutrition monitoring, and social features. Includes AI-powered recommendations and progress analytics.",
-      technologies: ["Flutter", "Firebase", "TensorFlow", "Health APIs", "Stripe"],
+      title: "Swank Stores",
+      category: "Branding",
+      image: "/swank-stores.png",
+      description: "Modern retail brand identity and design system",
+      longDescription: "Swank Stores brand identity emphasizes modern retail aesthetics with a focus on premium shopping experience. Includes storefront design, packaging, and digital brand guidelines.",
+      technologies: ["Brand Strategy", "Retail Design", "Packaging Design", "Digital Assets"],
       liveUrl: "#",
       githubUrl: "#",
-      stats: { views: "2.9K", likes: "389" }
+      stats: { views: "2.4K", likes: "367" }
+    },
+    {
+      id: 7,
+      title: "Pasuparthy",
+      category: "Branding",
+      image: "/pasuparthy.png",
+      description: "Professional services brand identity",
+      longDescription: "Pasuparthy professional services branding focuses on trust, reliability, and expertise. The design system includes corporate materials, digital presence, and professional documentation.",
+      technologies: ["Corporate Identity", "Professional Branding", "Print Design"],
+      liveUrl: "#",
+      githubUrl: "#",
+      stats: { views: "1.5K", likes: "198" }
     }
   ]
 

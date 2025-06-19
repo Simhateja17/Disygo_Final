@@ -1,12 +1,11 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { Monitor, Search, Smartphone, BarChart, PenTool, Shield } from './Icons'
+import { Monitor, Smartphone, BarChart, Brain, Code, Headphones } from './Icons'
 import AnimatedNumber from './AnimatedNumber'
 
 const ServicesSection = () => {
   const [visibleCards, setVisibleCards] = useState<number[]>([])
-  const [selectedService, setSelectedService] = useState<number | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
 
   const services = [
@@ -18,11 +17,11 @@ const ServicesSection = () => {
       color: "from-blue-500 to-cyan-500"
     },
     {
-      icon: <Search size={24} />,
-      title: "SEO OPTIMIZATION",
-      description: "BOOST YOUR ONLINE VISIBILITY AND DRIVE ORGANIC TRAFFIC WITH OUR COMPREHENSIVE SEARCH ENGINE OPTIMIZATION STRATEGIES.",
-      features: ["Keyword Research", "On-Page SEO", "Technical SEO", "Content Strategy"],
-      color: "from-green-500 to-teal-500"
+      icon: <Brain size={24} />,
+      title: "AI AGENTS",
+      description: "INTELLIGENT AI-POWERED SOLUTIONS THAT AUTOMATE TASKS, ENHANCE DECISION-MAKING, AND PROVIDE PERSONALIZED USER EXPERIENCES.",
+      features: ["Custom AI Models", "Natural Language Processing", "Machine Learning", "Intelligent Automation"],
+      color: "from-purple-500 to-pink-500"
     },
     {
       icon: <Smartphone size={24} />,
@@ -39,18 +38,18 @@ const ServicesSection = () => {
       color: "from-orange-500 to-red-500"
     },
     {
-      icon: <PenTool size={24} />,
-      title: "UI/UX DESIGN",
-      description: "BEAUTIFUL, INTUITIVE DESIGNS THAT ENHANCE USER EXPERIENCE AND DRIVE ENGAGEMENT WITH YOUR DIGITAL PRODUCTS.",
-      features: ["User Research", "Wireframing", "Prototyping", "Design Systems"],
-      color: "from-indigo-500 to-purple-500"
+      icon: <Code size={24} />,
+      title: "APP DEVELOPMENT",
+      description: "NATIVE AND CROSS-PLATFORM MOBILE APPLICATIONS THAT DELIVER SEAMLESS USER EXPERIENCES ACROSS IOS AND ANDROID DEVICES.",
+      features: ["Native Development", "Cross-Platform Apps", "UI/UX Design", "App Store Optimization"],
+      color: "from-green-500 to-teal-500"
     },
     {
-      icon: <Shield size={24} />,
-      title: "CYBERSECURITY",
-      description: "COMPREHENSIVE SECURITY SOLUTIONS TO PROTECT YOUR DIGITAL ASSETS AND ENSURE YOUR BUSINESS CONTINUITY.",
-      features: ["Security Audits", "Threat Detection", "Data Protection", "Compliance"],
-      color: "from-red-500 to-orange-500"
+      icon: <Headphones size={24} />,
+      title: "AI CUSTOMER SERVICES",
+      description: "ADVANCED AI-POWERED CUSTOMER SERVICE SOLUTIONS INCLUDING INTELLIGENT VOICE BOTS AND CHATBOTS THAT PROVIDE 24/7 SUPPORT AND ENHANCE CUSTOMER ENGAGEMENT.",
+      features: ["Voice Bot Integration", "AI Chatbots", "Natural Language Understanding", "24/7 Automated Support"],
+      color: "from-indigo-500 to-purple-500"
     }
   ]
 
@@ -101,15 +100,14 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <div 
               key={index}
-              className={`service-card metallic-glass rounded-2xl p-8 cyan-border cursor-pointer group relative overflow-hidden transform-gpu ${
+              className={`service-card metallic-glass rounded-2xl p-8 cyan-border group relative overflow-hidden transform-gpu ${
                 visibleCards.includes(index) ? 'animate-scale-in' : 'opacity-0 translate-y-10'
-              } ${selectedService === index ? 'ring-2 ring-cyan-500 scale-105' : ''}`}
+              }`}
               style={{ 
                 animationDelay: `${index * 100}ms`,
                 willChange: 'transform',
                 transition: 'all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
               }}
-              onClick={() => setSelectedService(selectedService === index ? null : index)}
             >
               {/* Instant Gradient Background */}
               <div 
@@ -153,40 +151,21 @@ const ServicesSection = () => {
               </p>
 
               {/* Optimized Features List */}
-              <div className={`transition-all duration-400 overflow-hidden ${
-                selectedService === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-              }`}>
-                <div className="border-t border-cyan-500/20 pt-4 mb-4">
-                  <h4 className="text-cyan-400 font-semibold mb-2 font-matrix-heading text-sm">KEY FEATURES:</h4>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, featureIndex) => (
-                      <li 
-                        key={featureIndex} 
-                        className="text-gray-300 text-sm flex items-center gap-2 font-matrix-body"
-                      >
-                        <div className="w-1 h-1 bg-cyan-400 rounded-full"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="border-t border-cyan-500/20 pt-4 mt-4">
+                <h4 className="text-cyan-400 font-semibold mb-2 font-matrix-heading text-sm">KEY FEATURES:</h4>
+                <ul className="space-y-2">
+                  {service.features.map((feature, featureIndex) => (
+                    <li 
+                      key={featureIndex} 
+                      className="text-gray-300 text-sm flex items-center gap-2 font-matrix-body"
+                    >
+                      <div className="w-1 h-1 bg-cyan-400 rounded-full"></div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
               </div>
               
-              <div className="mt-6 relative z-10">
-                <button 
-                  className="text-gray-300 font-semibold hover:text-brand-cyan cyan-hover flex items-center gap-2 font-matrix-body group/btn"
-                  style={{ transition: 'color 0.1s ease-out' }}
-                >
-                  {selectedService === index ? 'HIDE DETAILS' : 'LEARN MORE'}
-                  <span 
-                    className={`${selectedService === index ? 'rotate-180' : 'group-hover/btn:translate-x-1'}`}
-                    style={{ transition: 'transform 0.1s ease-out' }}
-                  >
-                    {selectedService === index ? '↑' : '→'}
-                  </span>
-                </button>
-              </div>
-
               {/* Instant animated particles */}
               <div 
                 className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"

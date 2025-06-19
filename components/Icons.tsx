@@ -158,4 +158,40 @@ export const Github: React.FC<IconProps> = ({ size = 24, className = "" }) => (
   <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
   </svg>
+)
+
+export const Brain: React.FC<IconProps> = ({ size = 24, className = "" }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M9.5 2C7.567 2 6 3.567 6 5.5c0 .516.112 1.006.312 1.447L6 7.5C6 9.433 7.567 11 9.5 11H10v7.5c0 .828.672 1.5 1.5 1.5s1.5-.672 1.5-1.5V11h.5c1.933 0 3.5-1.567 3.5-3.5l-.312-.553c.2-.441.312-.931.312-1.447 0-1.933-1.567-3.5-3.5-3.5-.516 0-1.006.112-1.447.312C11.506 2.112 10.516 2 10 2c-.516 0-1.006.112-1.553.312C8.006 2.112 7.516 2 7 2H9.5z"></path>
+    <path d="M16 8c0 1.5 1.5 3 3 3s3-1.5 3-3-1.5-3-3-3"></path>
+    <path d="M8 8c0 1.5-1.5 3-3 3s-3-1.5-3-3 1.5-3 3-3"></path>
+  </svg>
+)
+
+export const Code: React.FC<IconProps> = ({ size = 24, className = "" }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polyline points="16 18 22 12 16 6"></polyline>
+    <polyline points="8 6 2 12 8 18"></polyline>
+    <line x1="12" y1="2" x2="12" y2="22"></line>
+  </svg>
+)
+
+export const Film: React.FC<IconProps> = ({ size = 24, className = "" }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+    <line x1="7" y1="2" x2="7" y2="22"></line>
+    <line x1="17" y1="2" x2="17" y2="22"></line>
+    <line x1="2" y1="12" x2="22" y2="12"></line>
+    <line x1="2" y1="7" x2="7" y2="7"></line>
+    <line x1="2" y1="17" x2="7" y2="17"></line>
+    <line x1="17" y1="17" x2="22" y2="17"></line>
+    <line x1="17" y1="7" x2="22" y2="7"></line>
+  </svg>
+)
+
+export const Headphones: React.FC<IconProps> = ({ size = 24, className = "" }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+  </svg>
 ) 

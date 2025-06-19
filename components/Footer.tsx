@@ -227,7 +227,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm font-matrix-body">
-              © 2024 DISYGO. All rights reserved. Crafted with ❤️ for the digital future.
+              © 2025 DISYGO. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
               <a href="#" className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 font-matrix-body">

@@ -5,7 +5,6 @@ import ServicesSection from '../components/ServicesSection'
 import Portfolio from '../components/Portfolio'
 import TestimonialsSection from '../components/TestimonialsSection'
 import Footer from '../components/Footer'
-import FloatingContact from '../components/FloatingContact'
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
       <Portfolio />
       <TestimonialsSection />
       <Footer />
-      <FloatingContact />
     </main>
   )
 } 
