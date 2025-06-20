@@ -1,11 +1,15 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { ArrowRight, Play } from './Icons'
+import { ArrowRight, Play, MessageCircle } from './Icons'
 import { InteractiveRobot } from './InteractiveRobot'
 import AnimatedNumber from './AnimatedNumber'
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  onOpenChat?: () => void
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
   const heroRef = useRef<HTMLElement>(null)
@@ -298,6 +302,88 @@ const HeroSection = () => {
                 mx-auto">
                 <div className="absolute inset-0 bg-gradient-radial from-white/10 to-transparent rounded-full blur-2xl"></div>
                 <InteractiveRobot />
+                
+                {/* Let's Chat Button */}
+                <div className="flex justify-center mt-6">
+                  <button
+                    onClick={onOpenChat}
+                    className="group relative overflow-hidden"
+                  >
+                    {/* Main Button Container */}
+                    <div className="relative px-10 py-5 bg-black/40 backdrop-blur-md border border-cyan-500/30 
+                      rounded-full transition-all duration-500 ease-out
+                      group-hover:border-cyan-400/60 group-hover:bg-cyan-500/10
+                      shadow-lg group-hover:shadow-2xl group-hover:shadow-cyan-500/25">
+                      
+                      {/* Flowing Background Animation - Behind text */}
+                      <div className="absolute inset-0 rounded-full overflow-hidden -z-10">
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-transparent to-cyan-400/10 
+                          translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-300/5 to-transparent 
+                          scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out delay-200"></div>
+                      </div>
+                      
+                      {/* Content Container - Above animations */}
+                      <div className="relative z-20 flex items-center space-x-4 text-white">
+                        {/* Animated Icon Container */}
+                        <div className="relative z-30">
+                          <div className="w-6 h-6 relative">
+                            <MessageCircle 
+                              size={24} 
+                              className="relative z-30 transition-all duration-500 
+                                group-hover:scale-110 group-hover:rotate-12 
+                                text-cyan-400 group-hover:text-cyan-300" 
+                            />
+                            {/* Icon Glow - Behind icon */}
+                            <div className="absolute inset-0 w-6 h-6 bg-cyan-400/20 rounded-full blur-sm 
+                              scale-0 group-hover:scale-150 transition-all duration-500 -z-10"></div>
+                          </div>
+                        </div>
+                        
+                        {/* Text - High z-index */}
+                        <span className="relative z-30 font-matrix-heading font-semibold text-lg tracking-wide
+                          text-white group-hover:text-cyan-100 transition-all duration-500">
+                          LET'S CHAT
+                        </span>
+                        
+                        {/* Status Indicator */}
+                        <div className="relative z-30">
+                          <div className="w-3 h-3 bg-emerald-400 rounded-full 
+                            group-hover:bg-emerald-300 transition-colors duration-300">
+                            {/* Pulse rings - Behind indicator */}
+                            <div className="absolute inset-0 rounded-full bg-emerald-400 
+                              animate-ping opacity-30 group-hover:opacity-50 -z-10"></div>
+                            <div className="absolute inset-0 rounded-full bg-emerald-400 
+                              animate-pulse opacity-20 group-hover:opacity-40 -z-10"></div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Flowing Border Animation - Behind everything */}
+                      <div className="absolute inset-0 rounded-full -z-20">
+                        <div className="absolute inset-0 rounded-full border border-transparent 
+                          bg-gradient-to-r from-cyan-500/30 via-cyan-400/30 to-cyan-500/30 bg-clip-border
+                          opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Outer Glow Effects - Behind button */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/0 via-cyan-400/5 to-cyan-500/0 
+                      blur-xl scale-0 group-hover:scale-125 transition-all duration-700 ease-out -z-30"></div>
+                    <div className="absolute inset-0 rounded-full bg-cyan-400/5 
+                      blur-2xl scale-0 group-hover:scale-150 transition-all duration-1000 ease-out -z-40"></div>
+                    
+                    {/* Floating Particles - Behind button */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-20">
+                      <div className="absolute top-2 right-8 w-1 h-1 bg-cyan-400 rounded-full 
+                        animate-float delay-0"></div>
+                      <div className="absolute bottom-3 left-6 w-1 h-1 bg-cyan-300 rounded-full 
+                        animate-float delay-300"></div>
+                      <div className="absolute top-1/2 left-2 w-0.5 h-0.5 bg-cyan-500 rounded-full 
+                        animate-float delay-700"></div>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
 

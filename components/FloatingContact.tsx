@@ -1,9 +1,13 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Mail, Phone, MapPin, X, ArrowRight } from './Icons'
+import { Mail, Phone, MapPin, X, ArrowRight, MessageCircle } from './Icons'
 
-const FloatingContact = () => {
+interface FloatingContactProps {
+  onOpenChat?: () => void
+}
+
+const FloatingContact: React.FC<FloatingContactProps> = ({ onOpenChat }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -19,10 +23,19 @@ const FloatingContact = () => {
 
   const contactOptions = [
     {
+      icon: MessageCircle,
+      label: 'Chat with AI',
+      action: () => {
+        setIsOpen(false)
+        onOpenChat?.()
+      },
+      color: 'from-cyan-500 to-blue-500'
+    },
+    {
       icon: Mail,
       label: 'Email Us',
-      action: () => window.open('mailto:hello@disygo.com'),
-      color: 'from-blue-500 to-cyan-500'
+      action: () => window.open('mailto:disygo.work@gmail.com'),
+      color: 'from-blue-500 to-indigo-500'
     },
     {
       icon: Phone,
