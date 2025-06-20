@@ -4,7 +4,11 @@ import React, { useState, useEffect } from 'react'
 import { Menu, X } from './Icons'
 import { DisygoHeaderLogo } from './DisygoLogos'
 
-const Header = () => {
+interface HeaderProps {
+  onOpenModal: () => void
+}
+
+const Header = ({ onOpenModal }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [isScrolled, setIsScrolled] = useState(false)
@@ -84,7 +88,10 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button className="robot-primary-button px-6 py-2 rounded-lg hover-glow transition-all duration-300 font-medium transform hover:scale-105 hover:-translate-y-1">
+            <button 
+              onClick={onOpenModal}
+              className="robot-primary-button px-6 py-2 rounded-lg hover-glow transition-all duration-300 font-medium transform hover:scale-105 hover:-translate-y-1"
+            >
               GET STARTED
             </button>
           </div>
@@ -118,7 +125,10 @@ const Header = () => {
                   {item.name}
                 </button>
               ))}
-              <button className="robot-primary-button px-6 py-2 rounded-lg mt-4 w-full transform hover:scale-105">
+              <button 
+                onClick={onOpenModal}
+                className="robot-primary-button px-6 py-2 rounded-lg mt-4 w-full transform hover:scale-105"
+              >
                 GET STARTED
               </button>
             </nav>

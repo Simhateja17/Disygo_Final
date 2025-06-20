@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, ArrowRight } from './Icons'
+import { Twitter, Instagram, Mail, Phone, MapPin, ArrowRight } from './Icons'
 import { DisygoTextLogo } from './DisygoLogos'
 
-const Footer = () => {
+       const Footer = () => {
   const [hoveredSocial, setHoveredSocial] = useState<string | null>(null)
   const [email, setEmail] = useState('')
   const [isSubscribed, setIsSubscribed] = useState(false)
@@ -20,28 +20,16 @@ const Footer = () => {
 
   const socialLinks = [
     { 
-      icon: Facebook, 
-      href: '#', 
-      label: 'Facebook',
-      color: 'hover:text-blue-500 hover:shadow-blue-500/20'
-    },
-    { 
       icon: Twitter, 
-      href: '#', 
+      href: 'https://x.com/disygo97505?t=82oOIrmbuw6W7v8t7iJaaA&s=09', 
       label: 'Twitter',
       color: 'hover:text-sky-400 hover:shadow-sky-400/20'
     },
     { 
       icon: Instagram, 
-      href: '#', 
+      href: 'https://www.instagram.com/disygo.in/', 
       label: 'Instagram',
       color: 'hover:text-pink-500 hover:shadow-pink-500/20'
-    },
-    { 
-      icon: Linkedin, 
-      href: '#', 
-      label: 'LinkedIn',
-      color: 'hover:text-blue-600 hover:shadow-blue-600/20'
     }
   ]
 
@@ -49,19 +37,19 @@ const Footer = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: 'hello@disygo.com',
-      href: 'mailto:hello@disygo.com'
+      value: 'disygo.work@gmail.com',
+      href: 'mailto:disygo.work@gmail.com'
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567'
+      value: '+91 87123 64696',
+      href: 'tel:+918712364696'
     },
     {
       icon: MapPin,
       label: 'Address',
-      value: '123 Tech Street, Digital City, DC 12345',
+      value: 'Tirupati, Andhra Pradesh, India',
       href: '#'
     }
   ]
@@ -75,11 +63,12 @@ const Footer = () => {
   ]
 
   const services = [
-    { name: 'Web Development', href: '#' },
-    { name: 'Mobile Apps', href: '#' },
-    { name: 'UI/UX Design', href: '#' },
-    { name: 'Digital Marketing', href: '#' },
-    { name: 'E-commerce', href: '#' }
+    { name: 'Website Development', href: '#services' },
+    { name: 'AI Agents', href: '#services' },
+    { name: 'Digital Marketing', href: '#services' },
+    { name: 'E-commerce Solutions', href: '#services' },
+    { name: 'App Development', href: '#services' },
+    { name: 'AI Customer Services', href: '#services' }
   ]
 
   return (
@@ -109,6 +98,8 @@ const Footer = () => {
                 <a
                   key={index}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`w-10 h-10 metallic-glass rounded-lg flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:shadow-lg group`}
                   onMouseEnter={() => setHoveredSocial(social.label)}
                   onMouseLeave={() => setHoveredSocial(null)}

@@ -4,7 +4,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Monitor, Smartphone, BarChart, Brain, Code, Headphones } from './Icons'
 import AnimatedNumber from './AnimatedNumber'
 
-const ServicesSection = () => {
+interface ServicesSectionProps {
+  onOpenModal: () => void
+}
+
+const ServicesSection = ({ onOpenModal }: ServicesSectionProps) => {
   const [visibleCards, setVisibleCards] = useState<number[]>([])
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -202,12 +206,13 @@ const ServicesSection = () => {
         </div>
 
         {/* Ultra-Fast Stats Section - INSTANT Animation */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-8">
           {[
-            { value: 15, suffix: '+', label: 'Years Experience' },
-            { value: 15, suffix: '+', label: 'Expert Team' },
-            { value: 99, suffix: '%', label: 'Success Rate' },
-            { value: 500, suffix: '+', label: 'Happy Clients' }
+            { value: 2, suffix: '+', label: 'Years Experience' },
+            { value: 18, suffix: '+', label: 'Companies Worked' },
+            { value: 100, suffix: '%', label: 'Success Rate' },
+            { value: 18, suffix: '+', label: 'Happy Clients' },
+            { value: 3, suffix: '+', label: 'Countries' }
           ].map((stat, index) => (
             <div 
               key={index} 
@@ -241,6 +246,7 @@ const ServicesSection = () => {
         {/* Instant Interactive CTA */}
         <div className="text-center mt-16">
           <button 
+            onClick={onOpenModal}
             className="robot-primary-button px-8 py-4 rounded-lg font-medium transform-gpu hover:scale-105 hover:-translate-y-1 group" 
             style={{ 
               willChange: 'transform',

@@ -1,13 +1,12 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { ExternalLink, Eye, Github } from './Icons'
+
 import AnimatedNumber from './AnimatedNumber'
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState('All')
   const [visibleProjects, setVisibleProjects] = useState<number[]>([])
-  const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
 
   const filters = ['All', 'Web Development', 'AI Agents', 'Branding']
@@ -20,7 +19,7 @@ const Portfolio = () => {
       image: "/fast-and-fab-project.png",
       description: "Modern e-commerce platform for fashion and lifestyle",
       longDescription: "Fast&Fab is a comprehensive e-commerce solution designed for the fashion industry. Features include product catalog management, secure payment processing, order tracking, and customer management system.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Tailwind CSS"],
+      technologies: ["React", "Node.js", "NeonDB", "Cashfree Payment Gateway", "Tailwind CSS"],
       liveUrl: "#",
       githubUrl: "#",
       stats: { views: "3.2K", likes: "445" }
@@ -32,7 +31,7 @@ const Portfolio = () => {
       image: "/jarvis-ai-project.png",
       description: "Advanced AI assistant with voice and chat capabilities",
       longDescription: "Jarvis AI Agent is an intelligent virtual assistant that combines natural language processing, voice recognition, and machine learning to provide personalized assistance and automation.",
-      technologies: ["Python", "OpenAI API", "Speech Recognition", "NLP", "FastAPI"],
+      technologies: ["Type Script", "Gemini API", "Speech Recognition", "NLP", "Docker", "Node.js"],
       liveUrl: "#",
       githubUrl: "#",
       stats: { views: "2.8K", likes: "392" }
@@ -91,7 +90,7 @@ const Portfolio = () => {
       category: "Branding",
       image: "/pasuparthy.png",
       description: "Professional services brand identity",
-      longDescription: "Pasuparthy professional services branding focuses on trust, reliability, and expertise. The design system includes corporate materials, digital presence, and professional documentation.",
+      longDescription: "Pasuparthy Super Market branding focuses on trust, reliability, and expertise. The design system includes corporate materials, digital presence, and professional documentation.",
       technologies: ["Corporate Identity", "Professional Branding", "Print Design"],
       liveUrl: "#",
       githubUrl: "#",
@@ -179,11 +178,10 @@ const Portfolio = () => {
           {filteredProjects.map((project, index) => (
             <div 
               key={project.id}
-              className={`group relative overflow-hidden rounded-2xl metallic-glass hover-glow transition-all duration-500 cursor-pointer ${
+              className={`group relative overflow-hidden rounded-2xl metallic-glass hover-glow transition-all duration-500 hover:scale-105 ${
                 visibleProjects.includes(index) ? 'animate-scale-in' : 'opacity-0 translate-y-10'
-              } ${selectedProject === project.id ? 'ring-2 ring-cyan-500 scale-105' : 'hover:scale-105'}`}
+              }`}
               style={{ animationDelay: `${index * 100}ms` }}
-              onClick={() => setSelectedProject(selectedProject === project.id ? null : project.id)}
             >
               {/* Image Container */}
               <div className="aspect-video overflow-hidden relative">
@@ -193,32 +191,7 @@ const Portfolio = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="flex gap-2">
-                      <button className="w-10 h-10 bg-cyan-500/20 backdrop-blur-sm rounded-full flex items-center justify-center text-cyan-400 hover:bg-cyan-500/40 hover:scale-110 transition-all duration-300">
-                        <Eye size={16} />
-                      </button>
-                      <button className="w-10 h-10 bg-cyan-500/20 backdrop-blur-sm rounded-full flex items-center justify-center text-cyan-400 hover:bg-cyan-500/40 hover:scale-110 transition-all duration-300">
-                        <ExternalLink size={16} />
-                      </button>
-                      <button className="w-10 h-10 bg-cyan-500/20 backdrop-blur-sm rounded-full flex items-center justify-center text-cyan-400 hover:bg-cyan-500/40 hover:scale-110 transition-all duration-300">
-                        <Github size={16} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
 
-                {/* Stats Badge */}
-                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm rounded-lg px-3 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="flex items-center gap-2 text-xs text-gray-300">
-                    <Eye size={12} />
-                    <span>{project.stats.views}</span>
-                    <span className="text-cyan-400">❤</span>
-                    <span>{project.stats.likes}</span>
-                  </div>
-                </div>
               </div>
               
               {/* Content */}
@@ -242,45 +215,23 @@ const Portfolio = () => {
                   {project.description}
                 </p>
 
-                {/* Expanded Content */}
-                <div className={`transition-all duration-500 overflow-hidden ${
-                  selectedProject === project.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
-                  <div className="border-t border-cyan-500/20 pt-4 mb-4">
-                    <p className="text-gray-300 text-sm mb-4 font-matrix-body">
-                      {project.longDescription}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech, techIndex) => (
-                        <span 
-                          key={techIndex}
-                          className="px-2 py-1 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-300 rounded text-xs font-medium border border-cyan-500/20 hover:border-cyan-500/40 transition-colors duration-300"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex gap-2">
-                      <button className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 px-4 rounded-lg text-sm font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
-                        Live Demo
-                      </button>
-                      <button className="flex-1 border border-cyan-500/50 text-cyan-400 py-2 px-4 rounded-lg text-sm font-medium hover:bg-cyan-500/10 transition-all duration-300 transform hover:scale-105">
-                        View Code
-                      </button>
-                    </div>
+                {/* Expanded Content - Always Visible */}
+                <div className="border-t border-cyan-500/20 pt-4 mb-4">
+                  <p className="text-gray-300 text-sm mb-4 font-matrix-body">
+                    {project.longDescription}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech, techIndex) => (
+                      <span 
+                        key={techIndex}
+                        className="px-2 py-1 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-300 rounded text-xs font-medium border border-cyan-500/20 hover:border-cyan-500/40 transition-colors duration-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                
-                <button className="text-gray-300 font-semibold hover:text-cyan-400 transition-colors duration-300 flex items-center gap-2 font-matrix-body group/btn text-sm">
-                  {selectedProject === project.id ? 'HIDE DETAILS' : 'VIEW DETAILS'}
-                  <span className={`transition-transform duration-300 ${
-                    selectedProject === project.id ? 'rotate-180' : 'group-hover/btn:translate-x-1'
-                  }`}>
-                    {selectedProject === project.id ? '↑' : '→'}
-                  </span>
-                </button>
               </div>
 
 
@@ -291,10 +242,10 @@ const Portfolio = () => {
         {/* Enhanced Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {[
-            { value: 150, suffix: '+', label: 'Projects Completed', delay: 0 },
-            { value: 50, suffix: '+', label: 'Happy Clients', delay: 200 },
-            { value: 25, suffix: '+', label: 'Countries Served', delay: 400 },
-            { value: 98, suffix: '%', label: 'Success Rate', delay: 600 }
+            { value: 18, suffix: '+', label: 'Projects Completed', delay: 0 },
+            { value: 18, suffix: '+', label: 'Happy Clients', delay: 200 },
+            { value: 3, suffix: '+', label: 'Countries Served', delay: 400 },
+            { value: 100, suffix: '%', label: 'Success Rate', delay: 600 }
           ].map((stat, index) => (
             <div 
               key={index} 
@@ -317,15 +268,7 @@ const Portfolio = () => {
           ))}
         </div>
 
-        {/* Interactive CTA */}
-        <div className="text-center">
-          <button className="robot-primary-button px-8 py-4 rounded-lg hover-glow transition-all duration-300 font-medium transform hover:scale-105 hover:-translate-y-1 button-pulse group">
-            <span className="flex items-center gap-3">
-              VIEW ALL PROJECTS
-              <div className="w-4 h-4 border-2 border-current rounded-full animate-spin group-hover:animate-none group-hover:scale-125 transition-all duration-300"></div>
-            </span>
-          </button>
-        </div>
+
       </div>
     </section>
   )

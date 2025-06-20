@@ -125,8 +125,8 @@ const HeroSection = () => {
               <div className="flex items-center gap-8 pt-8 flex-wrap">
                 <div className="absolute text-center metallic-glass p-4 rounded-lg transform translate-x-[30px] translate-y-[10px] cyan-border-glow cyan-glow-effect animate-cyan-pulse hover:scale-110 transition-all duration-300 cursor-pointer group">
                   <AnimatedNumber 
-                    value={500} 
-                    suffix="+" 
+                    value={18} 
+                    suffix="" 
                     className="text-3xl font-bold cyan-gradient-text font-matrix-heading group-hover:text-4xl transition-all duration-300"
                     duration={2500}
                   />
@@ -145,7 +145,7 @@ const HeroSection = () => {
                 </div>
                 <div className="absolute text-center metallic-glass p-4 rounded-lg transform translate-x-[160px] translate-y-[155px] cyan-border-glow cyan-glow-effect animate-cyan-pulse hover:scale-110 transition-all duration-300 cursor-pointer group">
                   <AnimatedNumber 
-                    value={5} 
+                    value={2} 
                     suffix="+" 
                     className="text-3xl font-bold cyan-gradient-text font-matrix-heading group-hover:text-4xl transition-all duration-300"
                     duration={1500}
