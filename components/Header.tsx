@@ -8,17 +8,56 @@ interface HeaderProps {
   onOpenModal: () => void
 }
 
+const navItems = [
+  { name: 'HOME', href: '#home' },
+  { name: 'SERVICES', href: '#services' },
+  { name: 'PORTFOLIO', href: '#portfolio' },
+  { name: 'CONTACT', href: '#contact' },
+]
+
 const Header = ({ onOpenModal }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
 
-  const navItems = [
-    { name: 'HOME', href: '#home' },
-    { name: 'SERVICES', href: '#services' },
-    { name: 'PORTFOLIO', href: '#portfolio' },
-    { name: 'CONTACT', href: '#contact' },
-  ]
+  // Mobile Configuration Settings
+  const mobileSettings = {
+    logo: {
+      container: {
+        position: "relative",
+        padding: "p-2",
+        margin: "m-0",
+        translateX: "-translate-x-5",
+        translateY: "translate-y-0",
+        hoverScale: "hover:scale-30"
+      },
+      size: {
+        width: 100,
+        height: 32
+      }
+    }
+  }
+
+  // Desktop Configuration Settings  
+  const desktopSettings = {
+    logo: {
+      container: {
+        position: "lg:relative",
+        padding: "lg:p-0",
+        margin: "lg:m-0",
+        translateX: "lg:translate-x-0",
+        translateY: "lg:translate-y-0",
+        hoverScale: "lg:hover:scale-105"
+      },
+      size: {
+        width: 120,
+        height: 40
+      }
+    }
+  }
+
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,8 +81,19 @@ const Header = ({ onOpenModal }: HeaderProps) => {
       }
     }
 
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024)
+    }
+
+    // Set initial values
+    handleResize()
+    
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   const handleNavClick = (href: string) => {
@@ -63,8 +113,17 @@ const Header = ({ onOpenModal }: HeaderProps) => {
       <div className="container mx-auto px-6 py-0 -my-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="transform hover:scale-105 transition-transform duration-300">
-            <DisygoHeaderLogo />
+          <div className={`${mobileSettings.logo.container.position} ${desktopSettings.logo.container.position}
+            ${mobileSettings.logo.container.padding} sm:p-1 ${desktopSettings.logo.container.padding}
+            ${mobileSettings.logo.container.margin} sm:m-0 ${desktopSettings.logo.container.margin}
+            transform ${mobileSettings.logo.container.translateX} ${mobileSettings.logo.container.translateY}
+            ${desktopSettings.logo.container.translateX} ${desktopSettings.logo.container.translateY}
+            ${mobileSettings.logo.container.hoverScale} ${desktopSettings.logo.container.hoverScale} 
+            transition-transform duration-300`}>
+            <DisygoHeaderLogo 
+              width={isDesktop ? desktopSettings.logo.size.width : mobileSettings.logo.size.width}
+              height={isDesktop ? desktopSettings.logo.size.height : mobileSettings.logo.size.height}
+            />
           </div>
 
           {/* Desktop Navigation */}
