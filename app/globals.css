@@ -498,6 +498,16 @@ html, body, main, section, div.container {
   transition-delay: 0s !important;
 }
 
+/* Hide scrollbar utility class */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
 /* Additional Interactive Animations */
 .animate-fade-in {
   animation: fadeIn 1s ease-out;
