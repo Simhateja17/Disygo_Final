@@ -1,18 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { OpenAI } from 'openai'
 
-// Configure Azure OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.AZURE_OPENAI_API_KEY,
-  baseURL: process.env.AZURE_OPENAI_ENDPOINT,
-  defaultQuery: { 'api-version': '2024-02-15-preview' },
-  defaultHeaders: {
-    'api-key': process.env.AZURE_OPENAI_API_KEY,
-  },
-})
+// Function to create OpenAI client (only when needed)
+function createOpenAIClient() {
+  return new OpenAI({
+    apiKey: process.env.AZURE_OPENAI_API_KEY,
+    baseURL: process.env.AZURE_OPENAI_ENDPOINT,
+    defaultQuery: { 'api-version': '2024-02-15-preview' },
+    defaultHeaders: {
+      'api-key': process.env.AZURE_OPENAI_API_KEY,
+    },
+  })
+}
 
 export async function POST(req: NextRequest) {
   try {
+    // Check if required environment variables are present
+    if (!process.env.AZURE_OPENAI_API_KEY || !process.env.AZURE_OPENAI_ENDPOINT || !process.env.AZURE_OPENAI_DEPLOYMENT_NAME) {
+      console.error('Missing required Azure OpenAI environment variables')
+      return NextResponse.json(
+        { error: 'Azure OpenAI is not properly configured. Please check environment variables.' },
+        { status: 500 }
+      )
+    }
+
     // Debug logging
     console.log('Azure OpenAI Configuration:')
     console.log('- Endpoint:', process.env.AZURE_OPENAI_ENDPOINT)
@@ -55,6 +66,9 @@ Guidelines:
 - Be engaging and maintain the conversation flow`
     }
 
+    // Create OpenAI client instance
+    const openai = createOpenAIClient()
+    
     const completion = await openai.chat.completions.create({
       model: process.env.AZURE_OPENAI_DEPLOYMENT_NAME || 'gpt-4.1-nano',
       messages: [systemMessage, ...messages],
