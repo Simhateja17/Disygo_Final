@@ -95,8 +95,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
     },
     robot: {
       scale: "lg:scale-100",
-      translateY: "lg:translate-y-0",
-      translateX: "lg:translate-x-0",
+      translateY: "lg:translate-y-10",
+      translateX: "-lg:translate-x-50",
       margins: "lg:mt-0 lg:mb-0"
     },
     stats: {
