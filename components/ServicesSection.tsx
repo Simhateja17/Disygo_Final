@@ -208,10 +208,10 @@ const ServicesSection = ({ onOpenModal }: ServicesSectionProps) => {
         {/* Ultra-Fast Stats Section - INSTANT Animation */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-8">
           {[
-            { value: 2, suffix: '+', label: 'Years Experience' },
-            { value: 18, suffix: '+', label: 'Companies Worked' },
+            { value: 3, suffix: '+', label: 'Years Experience' },
+            { value: 30, suffix: '+', label: 'Companies Worked' },
             { value: 100, suffix: '%', label: 'Success Rate' },
-            { value: 18, suffix: '+', label: 'Happy Clients' },
+            { value: 30, suffix: '+', label: 'Happy Clients' },
             { value: 3, suffix: '+', label: 'Countries' }
           ].map((stat, index) => (
             <div 

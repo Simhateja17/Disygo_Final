@@ -19,12 +19,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
   const mobileSettings = {
     logo: {
       height: "h-25",
-      translateY: "-translate-y-30",
+      translateY: "translate-y-5",
       translateX: "translate-x-0"
     },
     robot: {
       scale: "scale-140",
-      translateY: "-translate-y-50",
+      translateY: "translate-y-10",
       translateX: "translate-x-0",
       margins: "mt-4 mb-8"
     },
@@ -36,7 +36,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
       card1: {
         position: "relative",
         translateX: "translate-x-0",
-        translateY: "translate-y-0",
+        translateY: "-translate-y-5",
         padding: "p-2",
         fontSize: "text-sm",
         labelSize: "text-xs",
@@ -47,7 +47,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
       card2: {
         position: "relative", 
         translateX: "translate-x-0",
-        translateY: "translate-y-0",
+        translateY: "-translate-y-5",
         padding: "p-2",
         fontSize: "text-sm",
         labelSize: "text-xs",
@@ -58,13 +58,30 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
       card3: {
         position: "relative",
         translateX: "translate-x-0",
-        translateY: "translate-y-0",
+        translateY: "-translate-y-5",
         padding: "p-2",
         fontSize: "text-sm",
         labelSize: "text-xs",
         hoverScale: "hover:scale-105",
         hoverFontSize: "group-hover:text-base",
         width: "w-24 flex-shrink-0"
+      }
+    },
+    chatButton: {
+      container: {
+        position: "relative",
+        justifyContent: "flex justify-center",
+        margin: "mt-6",
+        padding: "px-4",
+        translateX: "translate-x-0",
+        translateY: "-translate-y-0"
+      },
+      button: {
+        padding: "px-8 py-4",
+        fontSize: "text-base",
+        iconSize: "w-5 h-5",
+        hoverScale: "hover:scale-105",
+        borderRadius: "rounded-full"
       }
     }
   }
@@ -116,6 +133,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
         labelSize: "lg:text-sm",
         hoverScale: "lg:hover:scale-110",
         hoverFontSize: "lg:group-hover:text-4xl"
+      }
+    },
+    chatButton: {
+      container: {
+        position: "lg:relative",
+        justifyContent: "lg:flex lg:justify-center",
+        margin: "lg:mt-8",
+        padding: "lg:px-0",
+        translateX: "lg:translate-x-0",
+        translateY: "lg:translate-y-0"
+      },
+      button: {
+        padding: "lg:px-10 lg:py-5",
+        fontSize: "lg:text-lg",
+        iconSize: "lg:w-6 lg:h-6",
+        hoverScale: "lg:hover:scale-110",
+        borderRadius: "lg:rounded-full"
       }
     }
   }
@@ -246,8 +280,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
                   cyan-border-glow cyan-glow-effect animate-cyan-pulse 
                   ${mobileSettings.stats.card1.hoverScale} ${desktopSettings.stats.card1.hoverScale} transition-all duration-300 cursor-pointer group`}>
                   <AnimatedNumber 
-                    value={18} 
-                    suffix="" 
+                    value={30} 
+                    suffix="+" 
                     className={`${mobileSettings.stats.card1.fontSize} sm:text-2xl ${desktopSettings.stats.card1.fontSize} font-bold cyan-gradient-text font-matrix-heading ${mobileSettings.stats.card1.hoverFontSize} sm:group-hover:text-3xl ${desktopSettings.stats.card1.hoverFontSize} transition-all duration-300`}
                     duration={2500}
                   />
@@ -278,7 +312,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
                   cyan-border-glow cyan-glow-effect animate-cyan-pulse 
                   ${mobileSettings.stats.card3.hoverScale} ${desktopSettings.stats.card3.hoverScale} transition-all duration-300 cursor-pointer group`}>
                   <AnimatedNumber 
-                    value={2} 
+                    value={3} 
                     suffix="+" 
                     className={`${mobileSettings.stats.card3.fontSize} sm:text-2xl ${desktopSettings.stats.card3.fontSize} font-bold cyan-gradient-text font-matrix-heading ${mobileSettings.stats.card3.hoverFontSize} sm:group-hover:text-3xl ${desktopSettings.stats.card3.hoverFontSize} transition-all duration-300`}
                     duration={1500}
@@ -304,16 +338,21 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
                 <InteractiveRobot />
                 
                 {/* Let's Chat Button */}
-                <div className="flex justify-center mt-6">
+                <div className={`${mobileSettings.chatButton.container.justifyContent} ${desktopSettings.chatButton.container.justifyContent} 
+                  ${mobileSettings.chatButton.container.position} ${desktopSettings.chatButton.container.position}
+                  ${mobileSettings.chatButton.container.margin} sm:mt-6 ${desktopSettings.chatButton.container.margin}
+                  ${mobileSettings.chatButton.container.padding} sm:px-0 ${desktopSettings.chatButton.container.padding}
+                  transform ${mobileSettings.chatButton.container.translateX} ${mobileSettings.chatButton.container.translateY} 
+                  ${desktopSettings.chatButton.container.translateX} ${desktopSettings.chatButton.container.translateY}`}>
                   <button
                     onClick={onOpenChat}
-                    className="group relative overflow-hidden"
+                    className={`group relative overflow-hidden ${mobileSettings.chatButton.button.hoverScale} ${desktopSettings.chatButton.button.hoverScale} transition-all duration-300`}
                   >
                     {/* Main Button Container */}
-                    <div className="relative px-10 py-5 bg-black/40 backdrop-blur-md border border-cyan-500/30 
-                      rounded-full transition-all duration-500 ease-out
+                    <div className={`relative ${mobileSettings.chatButton.button.padding} sm:px-9 sm:py-4 ${desktopSettings.chatButton.button.padding} bg-black/40 backdrop-blur-md border border-cyan-500/30 
+                      ${mobileSettings.chatButton.button.borderRadius} ${desktopSettings.chatButton.button.borderRadius} transition-all duration-500 ease-out
                       group-hover:border-cyan-400/60 group-hover:bg-cyan-500/10
-                      shadow-lg group-hover:shadow-2xl group-hover:shadow-cyan-500/25">
+                      shadow-lg group-hover:shadow-2xl group-hover:shadow-cyan-500/25`}>
                       
                       {/* Flowing Background Animation - Behind text */}
                       <div className="absolute inset-0 rounded-full overflow-hidden -z-10">
@@ -327,22 +366,22 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
                       <div className="relative z-20 flex items-center space-x-4 text-white">
                         {/* Animated Icon Container */}
                         <div className="relative z-30">
-                          <div className="w-6 h-6 relative">
+                          <div className={`${mobileSettings.chatButton.button.iconSize} sm:w-6 sm:h-6 ${desktopSettings.chatButton.button.iconSize} relative`}>
                             <MessageCircle 
-                              size={24} 
+                              size={20} 
                               className="relative z-30 transition-all duration-500 
                                 group-hover:scale-110 group-hover:rotate-12 
                                 text-cyan-400 group-hover:text-cyan-300" 
                             />
                             {/* Icon Glow - Behind icon */}
-                            <div className="absolute inset-0 w-6 h-6 bg-cyan-400/20 rounded-full blur-sm 
-                              scale-0 group-hover:scale-150 transition-all duration-500 -z-10"></div>
+                            <div className={`absolute inset-0 ${mobileSettings.chatButton.button.iconSize} sm:w-6 sm:h-6 ${desktopSettings.chatButton.button.iconSize} bg-cyan-400/20 rounded-full blur-sm 
+                              scale-0 group-hover:scale-150 transition-all duration-500 -z-10`}></div>
                           </div>
                         </div>
                         
                         {/* Text - High z-index */}
-                        <span className="relative z-30 font-matrix-heading font-semibold text-lg tracking-wide
-                          text-white group-hover:text-cyan-100 transition-all duration-500">
+                        <span className={`relative z-30 font-matrix-heading font-semibold ${mobileSettings.chatButton.button.fontSize} sm:text-lg ${desktopSettings.chatButton.button.fontSize} tracking-wide
+                          text-white group-hover:text-cyan-100 transition-all duration-500`}>
                           LET'S CHAT
                         </span>
                         

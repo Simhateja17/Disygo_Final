@@ -242,8 +242,8 @@ const Portfolio = () => {
         {/* Enhanced Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {[
-            { value: 18, suffix: '+', label: 'Projects Completed', delay: 0 },
-            { value: 18, suffix: '+', label: 'Happy Clients', delay: 200 },
+            { value: 30, suffix: '+', label: 'Projects Completed', delay: 0 },
+            { value: 30, suffix: '+', label: 'Happy Clients', delay: 200 },
             { value: 3, suffix: '+', label: 'Countries Served', delay: 400 },
             { value: 100, suffix: '%', label: 'Success Rate', delay: 600 }
           ].map((stat, index) => (
