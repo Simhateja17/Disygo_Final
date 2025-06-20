@@ -59,7 +59,7 @@ const FloatingContact: React.FC<FloatingContactProps> = ({ onOpenChat }) => {
   if (!isVisible) return null
 
   return (
-    <div className="fixed bottom-24 right-8 z-40">
+    <div className="fixed bottom-24 right-8 z-40 hidden md:block">
       {/* Contact Options */}
       <div className={`space-y-3 mb-4 transition-all duration-500 ${
         isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
