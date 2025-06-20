@@ -19,7 +19,7 @@ const HeroSection = () => {
       translateX: "translate-x-0"
     },
     robot: {
-      scale: "scale-120",
+      scale: "scale-140",
       translateY: "-translate-y-50",
       translateX: "translate-x-0",
       margins: "mt-4 mb-8"

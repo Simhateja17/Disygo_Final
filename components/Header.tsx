@@ -15,7 +15,6 @@ const Header = ({ onOpenModal }: HeaderProps) => {
 
   const navItems = [
     { name: 'HOME', href: '#home' },
-    { name: 'ABOUT', href: '#about' },
     { name: 'SERVICES', href: '#services' },
     { name: 'PORTFOLIO', href: '#portfolio' },
     { name: 'CONTACT', href: '#contact' },
