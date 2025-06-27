@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { X, Send } from './Icons'
 
 interface Message {
@@ -29,33 +29,41 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+  // Optimized scroll function - only when needed
+  const scrollToBottom = useCallback(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight
+    }
+  }, [])
 
+  // Only scroll when messages change, not on every render
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+    const timeoutId = setTimeout(scrollToBottom, 0)
+    return () => clearTimeout(timeoutId)
+  }, [messages.length, scrollToBottom])
 
+  // Focus input only when modal opens
   useEffect(() => {
     if (isOpen && inputRef.current) {
-      inputRef.current.focus()
+      const timeoutId = setTimeout(() => {
+        inputRef.current?.focus()
+      }, 0)
+      return () => clearTimeout(timeoutId)
     }
   }, [isOpen])
 
-  // Handle escape key to close modal
-  React.useEffect(() => {
+  // Simplified escape handler - no propagation overhead
+  useEffect(() => {
+    if (!isOpen) return
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose()
       }
     }
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape)
-      // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden'
-    }
+    document.addEventListener('keydown', handleEscape)
+    document.body.style.overflow = 'hidden'
 
     return () => {
       document.removeEventListener('keydown', handleEscape)
@@ -63,24 +71,23 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     }
   }, [isOpen, onClose])
 
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return
+  const handleSendMessage = useCallback(async () => {
+    const message = inputMessage.trim()
+    if (!message) return
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      text: inputMessage,
+      text: message,
       isUser: true,
       timestamp: new Date()
     }
 
     setMessages(prev => [...prev, userMessage])
-    const currentInput = inputMessage
     setInputMessage('')
     setIsTyping(true)
 
     try {
-      // Get AI response from Azure OpenAI
-      const aiResponse = await getAIResponse(currentInput, [...messages, userMessage])
+      const aiResponse = await getAIResponse(message, [...messages, userMessage])
       
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -93,7 +100,6 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     } catch (error) {
       console.error('Error getting AI response:', error)
       
-      // Show error message to user
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: "I'm sorry, I'm having trouble connecting right now. Please try again in a moment. If the issue persists, feel free to contact our team directly!",
@@ -105,12 +111,11 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     } finally {
       setIsTyping(false)
     }
-  }
+  }, [inputMessage, messages])
 
   // Azure OpenAI integration
   const getAIResponse = async (userInput: string, conversationHistory: Message[]): Promise<string> => {
     try {
-      // Convert messages to OpenAI format
       const openAIMessages = conversationHistory.map(msg => ({
         role: msg.isUser ? 'user' as const : 'assistant' as const,
         content: msg.text
@@ -140,108 +145,114 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     }
   }
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  // Ultra-fast input change handler - no overhead
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputMessage(e.target.value)
+  }, [])
+
+  // Ultra-fast key handler - minimal processing
+  const handleKeyPress = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
     }
-  }
+  }, [handleSendMessage])
+
+  // Memoized message list to prevent unnecessary re-renders
+  const messageList = useMemo(() => 
+    messages.map((message) => (
+      <div
+        key={message.id}
+        className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} mb-4`}
+      >
+        <div
+          className={`max-w-[70%] p-3 rounded-lg ${
+            message.isUser
+              ? 'bg-cyan-600 text-white'
+              : 'bg-gray-800 border border-gray-700 text-white'
+          }`}
+        >
+          <p className="text-sm">{message.text}</p>
+          <span className="text-xs opacity-70 mt-1 block">
+            {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          </span>
+        </div>
+      </div>
+    )), [messages])
 
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-[9999] overflow-hidden bg-black/80 backdrop-blur-sm">
-      {/* Backdrop */}
-      <div 
-        className="absolute inset-0"
-        onClick={onClose}
-      ></div>
+    <div className="fixed inset-0 z-[9999] bg-black bg-opacity-80">
+      {/* Simplified backdrop */}
+      <div className="absolute inset-0" onClick={onClose}></div>
       
-      {/* Modal */}
+      {/* Ultra-lightweight modal */}
       <div className="relative flex items-center justify-center min-h-screen p-4">
-        <div className="relative bg-black/95 backdrop-blur-md border border-cyan-500/30 rounded-2xl shadow-2xl shadow-cyan-500/20 w-full max-w-4xl h-[80vh] flex flex-col">
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-cyan-500/20 bg-black/95 backdrop-blur-md rounded-t-2xl">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                  🤖
-                </div>
+        <div className="relative bg-black border border-cyan-500 border-opacity-30 rounded-lg w-full max-w-4xl h-[80vh] flex flex-col">
+          {/* Simplified header */}
+          <div className="flex items-center justify-between p-4 border-b border-cyan-500 border-opacity-20 bg-black">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-full bg-cyan-600 flex items-center justify-center">
+                🤖
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white font-matrix-heading">
-                  <span className="cyan-gradient-text">Disygo AI Assistant</span>
-                </h2>
-                <p className="text-gray-400 text-sm font-matrix-body">
-                  Online • Ready to help
-                </p>
+                <h2 className="text-lg font-bold text-cyan-400">Disygo AI Assistant</h2>
+                <p className="text-gray-400 text-xs">Online • Ready to help</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-white transition-colors duration-300 p-2 hover:bg-white/10 rounded-lg group"
+              className="text-gray-400 hover:text-white p-2"
             >
-              <X size={24} className="group-hover:rotate-90 transition-transform duration-300" />
+              <X size={20} />
             </button>
           </div>
           
-          {/* Messages Container */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-transparent to-black/20">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[70%] p-4 rounded-2xl ${
-                    message.isUser
-                      ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white'
-                      : 'bg-gray-800/50 border border-gray-700/50 text-white'
-                  } shadow-lg`}
-                >
-                  <p className="text-sm leading-relaxed">{message.text}</p>
-                  <span className="text-xs opacity-70 mt-2 block">
-                    {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </span>
-                </div>
-              </div>
-            ))}
+          {/* Ultra-fast messages container */}
+          <div 
+            ref={messagesEndRef}
+            className="flex-1 overflow-y-auto p-4 bg-black"
+            style={{ scrollBehavior: 'auto' }}
+          >
+            {messageList}
             
-            {/* Typing indicator */}
+            {/* Simplified typing indicator */}
             {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-gray-800/50 border border-gray-700/50 p-4 rounded-2xl">
+              <div className="flex justify-start mb-4">
+                <div className="bg-gray-800 p-3 rounded-lg">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
                   </div>
                 </div>
               </div>
             )}
-            <div ref={messagesEndRef} />
           </div>
           
-          {/* Input Area */}
-          <div className="p-6 border-t border-cyan-500/20 bg-black/95 backdrop-blur-md rounded-b-2xl">
-            <div className="flex space-x-4">
+          {/* Ultra-lightweight input area */}
+          <div className="p-4 border-t border-cyan-500 border-opacity-20 bg-black">
+            <div className="flex space-x-3">
               <input
                 ref={inputRef}
                 type="text"
                 value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
+                onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
-                className="flex-1 bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300"
+                className="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
                 disabled={isTyping}
+                autoComplete="off"
+                spellCheck="false"
               />
               <button
                 onClick={handleSendMessage}
                 disabled={!inputMessage.trim() || isTyping}
-                className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-xl hover:from-cyan-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl hover:shadow-cyan-500/20"
+                className="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
               >
-                <Send size={20} />
-                <span className="hidden sm:inline">Send</span>
+                <Send size={16} />
+                <span className="hidden sm:inline text-sm">Send</span>
               </button>
             </div>
             <p className="text-xs text-gray-500 mt-2 text-center">
