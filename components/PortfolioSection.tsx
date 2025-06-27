@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { ExternalLink } from 'lucide-react'
 import AnimatedNumber from './AnimatedNumber'
 
@@ -60,9 +61,12 @@ const PortfolioSection = () => {
               className="group relative overflow-hidden rounded-2xl glass-effect hover-glow transition-all duration-300 hover:transform hover:scale-105"
             >
               <div className="aspect-video overflow-hidden">
-                <img 
+                <Image 
                   src={project.image}
                   alt={project.title}
+                  width={600}
+                  height={400}
+                  loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>

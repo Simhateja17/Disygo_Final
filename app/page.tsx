@@ -1,15 +1,44 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import Header from '../components/Header'
-import HeroSection from '../components/HeroSection'
-import ServicesSection from '../components/ServicesSection'
-import Portfolio from '../components/Portfolio'
-import TestimonialsSection from '../components/TestimonialsSection'
-import Footer from '../components/Footer'
+import OptimizedHeroSection from '../components/OptimizedHeroSection'
 import GoogleFormModal from '../components/GoogleFormModal'
 import ChatModal from '../components/ChatModal'
-import FloatingContact from '../components/FloatingContact'
+import { LazyWrapper } from '../components/PerformanceOptimizations'
+
+const ServicesSection = dynamic(() => import('../components/ServicesSection'), {
+  loading: () => (
+    <div className="min-h-[400px] bg-black flex items-center justify-center">
+      <div className="text-cyan-400 text-lg animate-pulse">Loading Services...</div>
+    </div>
+  )
+})
+
+const Portfolio = dynamic(() => import('../components/Portfolio'), {
+  loading: () => (
+    <div className="min-h-[400px] bg-black flex items-center justify-center">
+      <div className="text-cyan-400 text-lg animate-pulse">Loading Portfolio...</div>
+    </div>
+  )
+})
+
+const TestimonialsSection = dynamic(() => import('../components/TestimonialsSection'), {
+  loading: () => (
+    <div className="min-h-[400px] bg-black flex items-center justify-center">
+      <div className="text-cyan-400 text-lg animate-pulse">Loading Testimonials...</div>
+    </div>
+  )
+})
+
+const Footer = dynamic(() => import('../components/Footer'), {
+  loading: () => (
+    <div className="min-h-[200px] bg-black flex items-center justify-center">
+      <div className="text-cyan-400 text-lg animate-pulse">Loading Footer...</div>
+    </div>
+  )
+})
 
 export default function Home() {
   const [isFormModalOpen, setIsFormModalOpen] = useState(false)
@@ -23,28 +52,65 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black">
+      {/* Header loads immediately - critical */}
       <Header onOpenModal={openFormModal} />
-      <HeroSection onOpenChat={openChatModal} />
-      {/* About Section - Using Services as About for now */}
-      <div id="about">
-        <ServicesSection onOpenModal={openFormModal} />
-      </div>
-      <Portfolio />
-      <TestimonialsSection onOpenModal={openFormModal} />
-      <Footer />
       
-      {/* Floating Contact with Chat Option */}
-      <FloatingContact onOpenChat={openChatModal} />
+      {/* Hero Section with optimization */}
+      <OptimizedHeroSection onOpenChat={openChatModal} />
       
-      {/* Modal Instances */}
-      <GoogleFormModal 
-        isOpen={isFormModalOpen} 
-        onClose={closeFormModal} 
-      />
-      <ChatModal 
-        isOpen={isChatModalOpen} 
-        onClose={closeChatModal} 
-      />
+      {/* Lazy load remaining sections */}
+      <LazyWrapper fallback={
+        <div className="min-h-[400px] bg-black flex items-center justify-center">
+          <div className="text-cyan-400 animate-pulse">Loading Services...</div>
+        </div>
+      }>
+        <div id="about">
+          <ServicesSection onOpenModal={openFormModal} />
+        </div>
+      </LazyWrapper>
+
+      <LazyWrapper fallback={
+        <div className="min-h-[400px] bg-black flex items-center justify-center">
+          <div className="text-cyan-400 animate-pulse">Loading Portfolio...</div>
+        </div>
+      }>
+        <Portfolio />
+      </LazyWrapper>
+
+      <LazyWrapper fallback={
+        <div className="min-h-[400px] bg-black flex items-center justify-center">
+          <div className="text-cyan-400 animate-pulse">Loading Testimonials...</div>
+        </div>
+      }>
+        <TestimonialsSection onOpenModal={openFormModal} />
+      </LazyWrapper>
+
+      <LazyWrapper fallback={
+        <div className="min-h-[200px] bg-black flex items-center justify-center">
+          <div className="text-cyan-400 animate-pulse">Loading Footer...</div>
+        </div>
+      }>
+        <Footer />
+      </LazyWrapper>
+      
+      {/* Modal Instances - Only load when needed */}
+      {isFormModalOpen && (
+        <Suspense fallback={null}>
+          <GoogleFormModal 
+            isOpen={isFormModalOpen} 
+            onClose={closeFormModal} 
+          />
+        </Suspense>
+      )}
+      
+      {isChatModalOpen && (
+        <Suspense fallback={null}>
+          <ChatModal 
+            isOpen={isChatModalOpen} 
+            onClose={closeChatModal} 
+          />
+        </Suspense>
+      )}
     </main>
   )
 } 

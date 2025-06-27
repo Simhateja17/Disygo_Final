@@ -15,6 +15,7 @@ export const DisygoTextLogo: React.FC<LogoProps> = ({ className = "", width = 12
       alt="DISYGO" 
       width={width}
       height={height}
+      priority={true}
       className="object-contain"
     />
   </div>
@@ -28,6 +29,7 @@ export const DisygoFullLogo: React.FC<LogoProps> = ({ className = "", width = 20
       alt="DISYGO" 
       width={width}
       height={height}
+      priority={true}
       className="object-contain"
     />
   </div>
@@ -41,6 +43,7 @@ export const DisygoHeaderLogo: React.FC<LogoProps> = ({ className = "", width = 
       alt="DISYGO" 
       width={width}
       height={height}
+      priority={true}
       className="object-contain"
     />
   </div>

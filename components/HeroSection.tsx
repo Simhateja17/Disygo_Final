@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Play, MessageCircle } from './Icons'
 import { InteractiveRobot } from './InteractiveRobot'
 import AnimatedNumber from './AnimatedNumber'
+import Image from 'next/image'
 
 interface HeroSectionProps {
   onOpenChat?: () => void
@@ -18,8 +19,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
   // Mobile Configuration Settings
   const mobileSettings = {
     logo: {
-      height: "h-25",
-      translateY: "translate-y-5",
+      height: "h-32",
+      translateY: "translate-y-2",
       translateX: "translate-x-0"
     },
     robot: {
@@ -89,9 +90,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
   // Desktop Configuration Settings  
   const desktopSettings = {
     logo: {
-      height: "lg:h-85 xl:h-101",
-      translateY: "lg:-translate-y-10",
-      translateX: "lg:translate-x-3"
+      height: "lg:h-64 xl:h-80",
+      translateY: "lg:-translate-y-8",
+      translateX: "lg:-translate-x-10"
     },
     robot: {
       scale: "lg:scale-100",
@@ -250,9 +251,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onOpenChat }) => {
               <div className="space-y-4 overflow-visible">
                 <div className="flex justify-center lg:justify-start">
                   <div className="relative group">
-                    <img 
+                    <Image 
                       src="/2.png" 
                       alt="DISYGO" 
+                      width={50}
+                      height={50}
+                      priority={true}
                       className={`${mobileSettings.logo.height} sm:h-45 md:h-65 ${desktopSettings.logo.height} w-auto object-contain transform 
                         ${mobileSettings.logo.translateY} sm:-translate-y-15 ${desktopSettings.logo.translateY}
                         ${mobileSettings.logo.translateX} sm:translate-x-1 ${desktopSettings.logo.translateX}

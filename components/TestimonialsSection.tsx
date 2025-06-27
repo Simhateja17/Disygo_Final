@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { Star, Quote, ArrowRight } from './Icons'
 
 interface TestimonialsSectionProps {
@@ -152,9 +153,12 @@ const TestimonialsSection = ({ onOpenModal }: TestimonialsSectionProps) => {
               {/* Client Info */}
               <div className="flex items-center justify-center gap-4">
                 <div className="relative group/avatar">
-                  <img
+                  <Image
                     src={currentTestimonial.avatar}
                     alt={currentTestimonial.name}
+                    width={64}
+                    height={64}
+                    loading="lazy"
                     className="w-16 h-16 rounded-lg object-contain bg-white p-2 border-2 border-cyan-500/20 group-hover/avatar:border-cyan-500/60 transition-all duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-lg opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-300"></div>
@@ -243,9 +247,12 @@ const TestimonialsSection = ({ onOpenModal }: TestimonialsSectionProps) => {
 
               {/* Client Info */}
               <div className="flex items-center gap-3">
-                <img
+                <Image
                   src={testimonial.avatar}
                   alt={testimonial.name}
+                  width={48}
+                  height={48}
+                  loading="lazy"
                   className="w-12 h-12 rounded-lg object-contain bg-white p-1 border border-cyan-500/20 group-hover:border-cyan-500/60 transition-colors duration-300"
                 />
                 <div>

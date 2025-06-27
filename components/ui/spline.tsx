@@ -1,14 +1,17 @@
 'use client'
 
 import { Suspense, lazy, useEffect, useState } from 'react'
-const Spline = lazy(() => import('@splinetool/react-spline'))
+import Spline from '@splinetool/react-spline'
+
+const LazySpline = lazy(() => import('@splinetool/react-spline'))
 
 interface SplineSceneProps {
   scene: string
   className?: string
+  immediate?: boolean
 }
 
-export function SplineScene({ scene, className }: SplineSceneProps) {
+export function SplineScene({ scene, className, immediate = false }: SplineSceneProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -24,6 +27,22 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
     );
   }
 
+  if (immediate) {
+    // For immediate loading, use direct import
+    return (
+      <div className="w-full h-full bg-transparent" style={{ background: 'transparent' }}>
+        <Spline
+          scene={scene}
+          className={`${className} spline-canvas`}
+          style={{
+            background: 'transparent',
+            backgroundColor: 'transparent'
+          }}
+        />
+      </div>
+    )
+  }
+
   return (
     <Suspense 
       fallback={
@@ -33,7 +52,7 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
       }
     >
       <div className="w-full h-full bg-transparent" style={{ background: 'transparent' }}>
-        <Spline
+        <LazySpline
           scene={scene}
           className={`${className} spline-canvas`}
           style={{

@@ -1,8 +1,10 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
+import { Search, ExternalLink, Github, Eye } from 'lucide-react'
 
 import AnimatedNumber from './AnimatedNumber'
+import LazyImage from './ui/LazyImage'
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState('All')
@@ -185,10 +187,14 @@ const Portfolio = () => {
             >
               {/* Image Container */}
               <div className="aspect-video overflow-hidden relative">
-                <img 
+                <LazyImage 
                   src={project.image}
                   alt={project.title}
+                  width={600}
+                  height={400}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  placeholderBlur={true}
+                  lazyOptions={{ threshold: 0.1, rootMargin: '100px' }}
                 />
                 
 
