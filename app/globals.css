@@ -17,7 +17,26 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeSpeed;
+  /* Only enable smooth scroll for non-modal contexts */
+  scroll-behavior: auto;
+}
+
+/* Enable smooth scrolling only for main page content, not modals */
+html:not(.modal-open) {
   scroll-behavior: smooth;
+}
+
+/* Prevent scroll on background when modal is open */
+html.modal-open {
+  overflow: hidden;
+  scroll-behavior: auto;
+}
+
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 html,
@@ -600,9 +619,22 @@ html, body, main, section, div.container {
   }
 }
 
-/* Smooth Scrolling Enhancement */
-html {
+/* Smooth Scrolling Enhancement - ONLY for main content */
+html:not(.modal-open) {
   scroll-behavior: smooth;
+}
+
+/* Override smooth scrolling inside modals */
+.modal-container,
+.modal-container * {
+  scroll-behavior: auto !important;
+}
+
+/* Ensure modal scroll isolation */
+.modal-scroll-container {
+  scroll-behavior: auto !important;
+  contain: layout style paint;
+  will-change: scroll-position;
 }
 
 /* Enhanced Focus States for Accessibility */
@@ -789,5 +821,69 @@ input:focus-visible {
   * {
     color: black !important;
     background: white !important;
+  }
+}
+
+/* Production-specific modal isolation */
+@media screen {
+  /* Force modal containment in production builds */
+  .modal-container {
+    contain: layout style paint size;
+    isolation: isolate;
+    scroll-behavior: auto !important;
+    position: fixed !important;
+    z-index: 9999 !important;
+  }
+  
+  /* Prevent any scroll propagation from modal */
+  .modal-container * {
+    scroll-behavior: auto !important;
+  }
+  
+  /* Ensure background scroll is completely disabled when modal is open */
+  html.modal-open,
+  body.modal-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    scroll-behavior: auto !important;
+    overscroll-behavior: none !important;
+    touch-action: none !important;
+  }
+  
+  /* Force scroll isolation on modal content */
+  .modal-scroll-container {
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-behavior: auto !important;
+    contain: strict !important;
+  }
+  
+  /* Disable smooth scrolling globally when modal is open */
+  html.modal-open * {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* Re-enable transitions for modal content only */
+  html.modal-open .modal-container * {
+    transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease !important;
+  }
+}
+
+/* Additional production safeguards */
+@supports (contain: strict) {
+  .modal-container {
+    contain: strict;
+  }
+}
+
+/* Fallback for older browsers */
+@supports not (contain: strict) {
+  .modal-container {
+    transform: translateZ(0);
+    will-change: transform;
   }
 }

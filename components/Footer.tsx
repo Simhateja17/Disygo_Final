@@ -237,7 +237,19 @@ import { DisygoTextLogo } from './DisygoLogos'
 
       {/* Scroll to Top Button */}
       <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={() => {
+          // Don't scroll if modal is open
+          if (document.documentElement.classList.contains('modal-open')) {
+            return
+          }
+          
+          // Use instant scroll in production to avoid conflicts
+          const isProduction = process.env.NODE_ENV === 'production'
+          window.scrollTo({ 
+            top: 0, 
+            behavior: isProduction ? 'auto' : 'smooth' 
+          })
+        }}
         className="fixed bottom-8 right-8 w-12 h-12 robot-primary-button rounded-full flex items-center justify-center hover-glow transition-all duration-300 transform hover:scale-110 z-50 group"
         aria-label="Scroll to top"
       >

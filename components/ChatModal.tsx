@@ -62,12 +62,43 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
       }
     }
 
-    document.addEventListener('keydown', handleEscape)
+    // Comprehensive modal state management for production
+    const originalOverflow = document.body.style.overflow
+    const originalPosition = document.body.style.position
+    const originalWidth = document.body.style.width
+    const originalHeight = document.body.style.height
+    const scrollPosition = window.pageYOffset
+
+    // Add modal-open class to disable smooth scrolling
+    document.documentElement.classList.add('modal-open')
+    document.body.classList.add('modal-open')
+    
+    // Prevent background scroll with multiple approaches
     document.body.style.overflow = 'hidden'
+    document.body.style.position = 'fixed'
+    document.body.style.width = '100%'
+    document.body.style.height = '100%'
+    document.body.style.top = `-${scrollPosition}px`
+
+    document.addEventListener('keydown', handleEscape)
 
     return () => {
+      // Restore original state
       document.removeEventListener('keydown', handleEscape)
-      document.body.style.overflow = 'unset'
+      
+      // Remove modal classes
+      document.documentElement.classList.remove('modal-open')
+      document.body.classList.remove('modal-open')
+      
+      // Restore body styles
+      document.body.style.overflow = originalOverflow
+      document.body.style.position = originalPosition
+      document.body.style.width = originalWidth
+      document.body.style.height = originalHeight
+      document.body.style.top = ''
+      
+      // Restore scroll position
+      window.scrollTo(0, scrollPosition)
     }
   }, [isOpen, onClose])
 
@@ -183,13 +214,13 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-black bg-opacity-80">
+    <div className="fixed inset-0 z-[9999] bg-black bg-opacity-80 modal-container">
       {/* Simplified backdrop */}
       <div className="absolute inset-0" onClick={onClose}></div>
       
       {/* Ultra-lightweight modal */}
       <div className="relative flex items-center justify-center min-h-screen p-4">
-        <div className="relative bg-black border border-cyan-500 border-opacity-30 rounded-lg w-full max-w-4xl h-[80vh] flex flex-col">
+        <div className="relative bg-black border border-cyan-500 border-opacity-30 rounded-lg w-full max-w-4xl h-[80vh] flex flex-col modal-container">
           {/* Simplified header */}
           <div className="flex items-center justify-between p-4 border-b border-cyan-500 border-opacity-20 bg-black">
             <div className="flex items-center space-x-3">
@@ -212,8 +243,21 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
           {/* Ultra-fast messages container */}
           <div 
             ref={messagesEndRef}
-            className="flex-1 overflow-y-auto p-4 bg-black"
-            style={{ scrollBehavior: 'auto' }}
+            className="flex-1 overflow-y-auto p-4 bg-black modal-scroll-container"
+            style={{ 
+              scrollBehavior: 'auto',
+              contain: 'layout style paint'
+            }}
+            onScroll={(e) => {
+              e.stopPropagation()
+              e.preventDefault()
+            }}
+            onWheel={(e) => {
+              e.stopPropagation()
+            }}
+            onTouchMove={(e) => {
+              e.stopPropagation()
+            }}
           >
             {messageList}
             

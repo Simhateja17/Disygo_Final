@@ -47,9 +47,17 @@ const FloatingContact: React.FC<FloatingContactProps> = ({ onOpenChat }) => {
       icon: MapPin,
       label: 'Visit Us',
       action: () => {
+        if (document.documentElement.classList.contains('modal-open')) {
+          return
+        }
+        
         const element = document.getElementById('contact')
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' })
+          const isProduction = process.env.NODE_ENV === 'production'
+          element.scrollIntoView({ 
+            behavior: isProduction ? 'auto' : 'smooth',
+            block: 'start'
+          })
         }
       },
       color: 'from-purple-500 to-pink-500'

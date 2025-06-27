@@ -97,9 +97,19 @@ const Header = ({ onOpenModal }: HeaderProps) => {
   }, [])
 
   const handleNavClick = (href: string) => {
+    // Don't scroll if modal is open
+    if (document.documentElement.classList.contains('modal-open')) {
+      return
+    }
+    
     const element = document.querySelector(href)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      // Use instant scroll in production to avoid conflicts
+      const isProduction = process.env.NODE_ENV === 'production'
+      element.scrollIntoView({ 
+        behavior: isProduction ? 'auto' : 'smooth',
+        block: 'start'
+      })
     }
     setIsMobileMenuOpen(false)
   }
