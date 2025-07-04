@@ -5,6 +5,7 @@ import { Send, Calendar, Clock, User, Mail, Phone, Globe, DollarSign, FileText, 
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Link from 'next/link'
+import { sendContactEmail } from '../../lib/emailService'
 
 interface FormData {
   name: string
@@ -33,6 +34,7 @@ export default function ContactPage() {
   
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string>('')
   const [errors, setErrors] = useState<Partial<FormData>>({})
 
   const services = [
@@ -67,32 +69,37 @@ export default function ContactPage() {
     if (!validateForm()) return
     
     setIsSubmitting(true)
+    setSubmitError('')
     
     try {
-      // Here you would typically send to your backend API
-      // For now, we'll simulate a submission
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Send email using EmailJS
+      const emailSent = await sendContactEmail(formData)
       
-      setIsSubmitted(true)
-      
-      // Reset form after successful submission
-      setTimeout(() => {
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          country: '',
-          service: '',
-          budget: '',
-          projectDetails: '',
-          preferredDate: '',
-          preferredTime: ''
-        })
-        setIsSubmitted(false)
-      }, 5000)
+      if (emailSent) {
+        setIsSubmitted(true)
+        
+        // Reset form after successful submission
+        setTimeout(() => {
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            country: '',
+            service: '',
+            budget: '',
+            projectDetails: '',
+            preferredDate: '',
+            preferredTime: ''
+          })
+          setIsSubmitted(false)
+        }, 5000)
+      } else {
+        setSubmitError('Failed to send email. Please try again or contact us directly at disygo.work@gmail.com')
+      }
       
     } catch (error) {
       console.error('Form submission error:', error)
+      setSubmitError('An unexpected error occurred. Please try again or contact us directly at disygo.work@gmail.com')
     } finally {
       setIsSubmitting(false)
     }
@@ -104,7 +111,11 @@ export default function ContactPage() {
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }))
     }
-  }, [errors])
+    // Clear submit error when user makes changes
+    if (submitError) {
+      setSubmitError('')
+    }
+  }, [errors, submitError])
 
   if (isSubmitted) {
     return (
@@ -336,17 +347,37 @@ export default function ContactPage() {
                       Preferred Contact Date <span className="text-red-400">*</span>
                     </label>
                     <div className="relative">
-                      <Calendar size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                      <Calendar size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 z-10 pointer-events-none" />
                       <input
                         type="date"
                         value={formData.preferredDate}
                         onChange={(e) => handleInputChange('preferredDate', e.target.value)}
                         min={new Date().toISOString().split('T')[0]}
-                        className={`w-full bg-gray-900 border ${errors.preferredDate ? 'border-red-500' : 'border-gray-700'} rounded-lg pl-12 pr-4 py-4 text-white focus:outline-none focus:border-cyan-500 transition-colors duration-300 font-matrix-body text-lg`}
+                        className={`w-full bg-gray-900 border ${errors.preferredDate ? 'border-red-500' : 'border-gray-700'} rounded-lg pl-12 pr-4 py-4 text-white focus:outline-none focus:border-cyan-500 transition-colors duration-300 font-matrix-body text-lg
+                          [&::-webkit-datetime-edit]:text-white
+                          [&::-webkit-datetime-edit-fields-wrapper]:text-white
+                          [&::-webkit-datetime-edit-text]:text-gray-400
+                          [&::-webkit-datetime-edit-month-field]:text-white
+                          [&::-webkit-datetime-edit-day-field]:text-white
+                          [&::-webkit-datetime-edit-year-field]:text-white
+                          [&::-webkit-calendar-picker-indicator]:hidden`}
                         disabled={isSubmitting}
+                        style={{
+                          colorScheme: 'dark'
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const dateInput = document.querySelector('input[type="date"]') as HTMLInputElement;
+                          if (dateInput) dateInput.showPicker();
+                        }}
+                        className="absolute inset-0 cursor-pointer"
+                        aria-label="Open date picker"
                       />
                     </div>
                     {errors.preferredDate && <p className="text-red-400 text-sm mt-2 font-matrix-body">{errors.preferredDate}</p>}
+                    <p className="text-gray-500 text-sm mt-1 font-matrix-body">Click anywhere in the field to select a date</p>
                   </div>
 
                   {/* Preferred Time */}
@@ -355,22 +386,48 @@ export default function ContactPage() {
                       Preferred Contact Time <span className="text-red-400">*</span>
                     </label>
                     <div className="relative">
-                      <Clock size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                      <Clock size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 z-10 pointer-events-none" />
                       <input
                         type="time"
                         value={formData.preferredTime}
                         onChange={(e) => handleInputChange('preferredTime', e.target.value)}
-                        className={`w-full bg-gray-900 border ${errors.preferredTime ? 'border-red-500' : 'border-gray-700'} rounded-lg pl-12 pr-4 py-4 text-white focus:outline-none focus:border-cyan-500 transition-colors duration-300 font-matrix-body text-lg`}
+                        className={`w-full bg-gray-900 border ${errors.preferredTime ? 'border-red-500' : 'border-gray-700'} rounded-lg pl-12 pr-4 py-4 text-white focus:outline-none focus:border-cyan-500 transition-colors duration-300 font-matrix-body text-lg
+                          [&::-webkit-datetime-edit]:text-white
+                          [&::-webkit-datetime-edit-fields-wrapper]:text-white
+                          [&::-webkit-datetime-edit-text]:text-gray-400
+                          [&::-webkit-datetime-edit-hour-field]:text-white
+                          [&::-webkit-datetime-edit-minute-field]:text-white
+                          [&::-webkit-datetime-edit-ampm-field]:text-white
+                          [&::-webkit-calendar-picker-indicator]:hidden`}
                         disabled={isSubmitting}
+                        style={{
+                          colorScheme: 'dark'
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const timeInput = document.querySelector('input[type="time"]') as HTMLInputElement;
+                          if (timeInput) timeInput.showPicker();
+                        }}
+                        className="absolute inset-0 cursor-pointer"
+                        aria-label="Open time picker"
                       />
                     </div>
                     {errors.preferredTime && <p className="text-red-400 text-sm mt-2 font-matrix-body">{errors.preferredTime}</p>}
+                    <p className="text-gray-500 text-sm mt-1 font-matrix-body">Click anywhere in the field to select a time</p>
                   </div>
                 </div>
               </div>
 
               {/* Submit Button */}
               <div className="pt-6 border-t border-gray-800">
+                {submitError && (
+                  <div className="mb-4 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+                    <p className="text-red-400 font-matrix-body text-sm">{submitError}</p>
+                  </div>
+                )}
+                
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -379,7 +436,7 @@ export default function ContactPage() {
                   {isSubmitting ? (
                     <>
                       <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>SUBMITTING...</span>
+                      <span>SENDING EMAIL...</span>
                     </>
                   ) : (
                     <>
@@ -389,7 +446,7 @@ export default function ContactPage() {
                   )}
                 </button>
                 <p className="text-gray-500 text-lg mt-4 text-center font-matrix-body">
-                  We'll review your project and get back to you within 24 hours.
+                  Your details will be sent directly to our team. We'll review your project and get back to you within 24 hours.
                 </p>
               </div>
             </form>
