@@ -4,7 +4,6 @@ import React, { useState, Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import Header from '../components/Header'
 import OptimizedHeroSection from '../components/OptimizedHeroSection'
-import GoogleFormModal from '../components/GoogleFormModal'
 import ChatModal from '../components/ChatModal'
 import { LazyWrapper } from '../components/PerformanceOptimizations'
 
@@ -41,11 +40,7 @@ const Footer = dynamic(() => import('../components/Footer'), {
 })
 
 export default function Home() {
-  const [isFormModalOpen, setIsFormModalOpen] = useState(false)
   const [isChatModalOpen, setIsChatModalOpen] = useState(false)
-
-  const openFormModal = () => setIsFormModalOpen(true)
-  const closeFormModal = () => setIsFormModalOpen(false)
   
   const openChatModal = () => setIsChatModalOpen(true)
   const closeChatModal = () => setIsChatModalOpen(false)
@@ -53,7 +48,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black">
       {/* Header loads immediately - critical */}
-      <Header onOpenModal={openFormModal} />
+      <Header />
       
       {/* Hero Section with optimization */}
       <OptimizedHeroSection onOpenChat={openChatModal} />
@@ -65,7 +60,7 @@ export default function Home() {
         </div>
       }>
         <div id="about">
-          <ServicesSection onOpenModal={openFormModal} />
+          <ServicesSection />
         </div>
       </LazyWrapper>
 
@@ -82,7 +77,7 @@ export default function Home() {
           <div className="text-cyan-400 animate-pulse">Loading Testimonials...</div>
         </div>
       }>
-        <TestimonialsSection onOpenModal={openFormModal} />
+        <TestimonialsSection />
       </LazyWrapper>
 
       <LazyWrapper fallback={
@@ -93,16 +88,7 @@ export default function Home() {
         <Footer />
       </LazyWrapper>
       
-      {/* Modal Instances - Only load when needed */}
-      {isFormModalOpen && (
-        <Suspense fallback={null}>
-          <GoogleFormModal 
-            isOpen={isFormModalOpen} 
-            onClose={closeFormModal} 
-          />
-        </Suspense>
-      )}
-      
+      {/* Chat Modal - Only load when needed */}
       {isChatModalOpen && (
         <Suspense fallback={null}>
           <ChatModal 

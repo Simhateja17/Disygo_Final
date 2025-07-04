@@ -3,12 +3,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Monitor, Smartphone, BarChart, Brain, Code, Headphones } from './Icons'
 import AnimatedNumber from './AnimatedNumber'
+import Link from 'next/link'
 
-interface ServicesSectionProps {
-  onOpenModal: () => void
-}
+interface ServicesSectionProps {}
 
-const ServicesSection = ({ onOpenModal }: ServicesSectionProps) => {
+const ServicesSection = () => {
   const [visibleCards, setVisibleCards] = useState<number[]>([])
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -245,9 +244,9 @@ const ServicesSection = ({ onOpenModal }: ServicesSectionProps) => {
 
         {/* Instant Interactive CTA */}
         <div className="text-center mt-16">
-          <button 
-            onClick={onOpenModal}
-            className="robot-primary-button px-8 py-4 rounded-lg font-medium transform-gpu hover:scale-105 hover:-translate-y-1 group" 
+          <Link 
+            href="/contact"
+            className="robot-primary-button px-8 py-4 rounded-lg font-medium transform-gpu hover:scale-105 hover:-translate-y-1 group inline-flex items-center" 
             style={{ 
               willChange: 'transform',
               transition: 'all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
@@ -260,7 +259,7 @@ const ServicesSection = ({ onOpenModal }: ServicesSectionProps) => {
                 style={{ transition: 'all 0.1s ease-out' }}
               ></div>
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </section>

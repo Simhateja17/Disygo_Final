@@ -80,7 +80,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     document.body.style.height = '100%'
     document.body.style.top = `-${scrollPosition}px`
 
-    document.addEventListener('keydown', handleEscape)
+      document.addEventListener('keydown', handleEscape)
 
     return () => {
       // Restore original state
@@ -225,7 +225,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
           <div className="flex items-center justify-between p-4 border-b border-cyan-500 border-opacity-20 bg-black">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-full bg-cyan-600 flex items-center justify-center">
-                🤖
+                  🤖
               </div>
               <div>
                 <h2 className="text-lg font-bold text-cyan-400">Disygo AI Assistant</h2>

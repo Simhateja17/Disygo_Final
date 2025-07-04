@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from 'react'
 import { Menu, X } from './Icons'
 import { DisygoHeaderLogo } from './DisygoLogos'
+import Link from 'next/link'
 
-interface HeaderProps {
-  onOpenModal: () => void
-}
+interface HeaderProps {}
 
 const navItems = [
   { name: 'HOME', href: '#home' },
@@ -15,7 +14,7 @@ const navItems = [
   { name: 'CONTACT', href: '#contact' },
 ]
 
-const Header = ({ onOpenModal }: HeaderProps) => {
+const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [isScrolled, setIsScrolled] = useState(false)
@@ -56,8 +55,6 @@ const Header = ({ onOpenModal }: HeaderProps) => {
       }
     }
   }
-
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -156,12 +153,12 @@ const Header = ({ onOpenModal }: HeaderProps) => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button 
-              onClick={onOpenModal}
+            <Link 
+              href="/contact"
               className="robot-primary-button px-6 py-2 rounded-lg hover-glow transition-all duration-300 font-medium transform hover:scale-105 hover:-translate-y-1"
             >
               GET STARTED
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -193,12 +190,12 @@ const Header = ({ onOpenModal }: HeaderProps) => {
                   {item.name}
                 </button>
               ))}
-              <button 
-                onClick={onOpenModal}
-                className="robot-primary-button px-6 py-2 rounded-lg mt-4 w-full transform hover:scale-105"
+              <Link 
+                href="/contact"
+                className="robot-primary-button px-6 py-2 rounded-lg mt-4 w-full transform hover:scale-105 text-center block"
               >
                 GET STARTED
-              </button>
+              </Link>
             </nav>
           </div>
         </div>

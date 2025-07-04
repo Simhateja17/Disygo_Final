@@ -3,12 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Star, Quote, ArrowRight } from './Icons'
+import Link from 'next/link'
 
-interface TestimonialsSectionProps {
-  onOpenModal: () => void
-}
+interface TestimonialsSectionProps {}
 
-const TestimonialsSection = ({ onOpenModal }: TestimonialsSectionProps) => {
+const TestimonialsSection = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [visibleCards, setVisibleCards] = useState<number[]>([])
@@ -297,15 +296,15 @@ const TestimonialsSection = ({ onOpenModal }: TestimonialsSectionProps) => {
           <p className="text-gray-400 mb-6 font-matrix-body">
             Ready to join our satisfied clients?
           </p>
-          <button 
-            onClick={onOpenModal}
-            className="robot-primary-button px-8 py-4 rounded-lg hover-glow transition-all duration-300 font-medium transform hover:scale-105 hover:-translate-y-1 button-pulse group"
+          <Link 
+            href="/contact"
+            className="robot-primary-button px-8 py-4 rounded-lg hover-glow transition-all duration-300 font-medium transform hover:scale-105 hover:-translate-y-1 button-pulse group inline-flex items-center"
           >
             <span className="flex items-center gap-3">
               START YOUR PROJECT
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </section>
